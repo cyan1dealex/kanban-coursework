@@ -2,6 +2,7 @@ import { useState } from 'react'
 import TaskCard from './TaskCard'
 
 const Column = ({ title, tasks, onAddTask }) => {
+    const [columnTitle, setColumnTitle] = useState(title)
     const [isAdding, setIsAdding] = useState(false)
     const [text, setText] = useState("")
 
@@ -15,7 +16,9 @@ const Column = ({ title, tasks, onAddTask }) => {
 
     return (
         <div className="column">
-            <h2>{title}</h2>
+            <div>
+                <input type="text" placeholder="Название колонки" value={columnTitle} onChange={(e) => setColumnTitle(e.target.value)}/>
+            </div>
 
             {tasks.map((text) => (
                 <TaskCard key={text} text={text}></TaskCard>
