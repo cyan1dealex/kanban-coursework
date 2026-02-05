@@ -3,7 +3,7 @@ import TaskCard from './TaskCard'
 
 const Column = ({ title, tasks, onAddTask, onRemoveTask }) => {
     const [columnTitle, setColumnTitle] = useState(title)
-    const [isAdding, setIsAdding] = useState(false)
+    const [isAddingTask, setIsAddingTask] = useState(false)
     const [text, setText] = useState("")
 
     const handleSubmit = () => {
@@ -11,7 +11,7 @@ const Column = ({ title, tasks, onAddTask, onRemoveTask }) => {
 
         onAddTask(text)
         setText("")
-        setIsAdding(false)
+        setIsAddingTask(false)
     }
 
     return (
@@ -28,7 +28,7 @@ const Column = ({ title, tasks, onAddTask, onRemoveTask }) => {
                 <TaskCard key={task.id} text={task.text} onDelete={() => onRemoveTask(task.id)}></TaskCard>
             ))}
 
-            {isAdding ? (
+            {isAddingTask ? (
                 <div className="column__addTask">
                     <input 
                         type="text" 
@@ -39,7 +39,7 @@ const Column = ({ title, tasks, onAddTask, onRemoveTask }) => {
                     <button onClick={handleSubmit}>Добавить </button>
                 </div>
             ) : (
-                <button onClick={() => setIsAdding(true)}>+ Добавить карточку</button>
+                <button onClick={() => setIsAddingTask(true)}>+ Добавить карточку</button>
             )}
             
         </div>

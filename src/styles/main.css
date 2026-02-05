@@ -11,6 +11,17 @@ body {
     padding: 30px;
 }
 
+.board__addColumn {
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+}
+
+.board__addColumnButton {
+    display: flex;
+    align-self: start;
+}
+
 .column {
     display: flex;
     flex-direction: column;
