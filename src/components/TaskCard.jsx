@@ -1,6 +1,6 @@
 const TaskCard = ({ text }) => {
     return (
-        <div>{text}</div>
+        <div className="taskCard">{text}</div>
     )
 }
 
