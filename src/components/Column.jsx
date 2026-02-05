@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import TaskCard from './TaskCard'
 
-const Column = ({ title, tasks, onAddTask }) => {
+const Column = ({ title, tasks, onAddTask, onRemoveTask }) => {
     const [columnTitle, setColumnTitle] = useState(title)
     const [isAdding, setIsAdding] = useState(false)
     const [text, setText] = useState("")
@@ -16,16 +16,20 @@ const Column = ({ title, tasks, onAddTask }) => {
 
     return (
         <div className="column">
-            <div>
-                <input type="text" placeholder="Название колонки" value={columnTitle} onChange={(e) => setColumnTitle(e.target.value)}/>
+            <div className="column__title">
+                <input 
+                    className="column__input"
+                    type="text" placeholder="Название колонки" 
+                    value={columnTitle} 
+                    onChange={(e) => setColumnTitle(e.target.value)}/>
             </div>
 
-            {tasks.map((text) => (
-                <TaskCard key={text} text={text}></TaskCard>
+            {tasks.map((task) => (
+                <TaskCard key={task.id} text={task.text} onDelete={() => onRemoveTask(task.id)}></TaskCard>
             ))}
 
             {isAdding ? (
-                <div>
+                <div className="column__addTask">
                     <input 
                         type="text" 
                         placeholder="Текст задачи"

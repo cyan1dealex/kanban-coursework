@@ -20,7 +20,31 @@ body {
     background-color: #5b5e6346;
 }
 
+.column__title {
+
+}
+
+.column__input {
+    padding: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: transparent;
+    border: none;
+}
+
+.column__input:hover {
+    background-color: #8585853a;
+}
+
+.column__addTask {
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+}
+
 .taskCard {
+    display: flex;
+    justify-content: space-between;
     padding: 10px;
     background-color: #1f23383a;
 }
