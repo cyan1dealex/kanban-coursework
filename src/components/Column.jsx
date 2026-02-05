@@ -1,14 +1,40 @@
+import { useState } from 'react'
 import TaskCard from './TaskCard'
 
-const Column = ({ title }) => {
+const Column = ({ title, tasks, onAddTask }) => {
+    const [isAdding, setIsAdding] = useState(false)
+    const [text, setText] = useState("")
+
+    const handleSubmit = () => {
+        if (!text.trim()) return;
+
+        onAddTask(text)
+        setText("")
+        setIsAdding(false)
+    }
 
     return (
         <div className="column">
             <h2>{title}</h2>
 
-            <TaskCard text="Задача 1"></TaskCard>
-            <TaskCard text="Задача 2"></TaskCard>
-            <TaskCard text="Задача 3"></TaskCard>
+            {tasks.map((text) => (
+                <TaskCard key={text} text={text}></TaskCard>
+            ))}
+
+            {isAdding ? (
+                <div>
+                    <input 
+                        type="text" 
+                        placeholder="Текст задачи"
+                        value={text}
+                        onChange={(e) => setText(e.target.value)}
+                    />
+                    <button onClick={handleSubmit}>Добавить </button>
+                </div>
+            ) : (
+                <button onClick={() => setIsAdding(true)}>+ Добавить карточку</button>
+            )}
+            
         </div>
     )
 }
