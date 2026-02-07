@@ -1,10 +1,19 @@
 import { useState } from 'react'
 import TaskCard from './TaskCard'
+import { useDroppable } from '@dnd-kit/core'
+import { SortableContext } from '@dnd-kit/sortable'
 
-const Column = ({ title, tasks, onAddTask, onRemoveTask }) => {
+const Column = ({ id, title, tasks, onAddTask, onRemoveTask }) => {
     const [columnTitle, setColumnTitle] = useState(title)
     const [isAddingTask, setIsAddingTask] = useState(false)
     const [text, setText] = useState("")
+
+    const {isOver, setNodeRef} = useDroppable({
+        id: `droppable-${id}`
+    })
+    const style = {
+        color: isOver ? 'red' : undefined,
+    }
 
     const handleSubmit = () => {
         if (!text.trim()) return;
@@ -15,7 +24,7 @@ const Column = ({ title, tasks, onAddTask, onRemoveTask }) => {
     }
 
     return (
-        <div className="column">
+        <div ref={setNodeRef} style={style} className="column">
             <div className="column__title">
                 <input 
                     className="column__input"
@@ -24,9 +33,11 @@ const Column = ({ title, tasks, onAddTask, onRemoveTask }) => {
                     onChange={(e) => setColumnTitle(e.target.value)}/>
             </div>
 
-            {tasks.map((task) => (
-                <TaskCard key={task.id} text={task.text} onDelete={() => onRemoveTask(task.id)}></TaskCard>
-            ))}
+            <SortableContext items={tasks.map(t => t.id)}>
+                {tasks.map((task) => (
+                    <TaskCard key={task.id} task={task} onDelete={() => onRemoveTask(task.id)}></TaskCard>
+                ))}
+            </SortableContext>
 
             {isAddingTask ? (
                 <div className="column__addTask">

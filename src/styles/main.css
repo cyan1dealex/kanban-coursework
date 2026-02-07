@@ -4,6 +4,10 @@ body {
     padding: 30px;
 }
 
+.dragHandle {
+    cursor: grab;
+}
+
 .board {
     display: flex;
     column-gap: 30px;

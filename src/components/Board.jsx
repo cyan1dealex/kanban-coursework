@@ -1,25 +1,9 @@
 import { useState } from 'react'
 import Column from './Column'
+import { DndContext } from '@dnd-kit/core';
+import { arrayMove } from '@dnd-kit/sortable';
 
 const Board = () => {
-    // const [columns, setColumns] = useState([
-    //     {
-    //         id: 1,
-    //         title: "Список дел",
-    //         tasks: [{id: 1, text: "Задача 1"}, {id: 2, text: "Задача 2"}, {id: 3, text: "Задача 3"}]
-    //     },
-    //     {
-    //         id: 2,
-    //         title: "В процессе",
-    //         tasks: [{id: 4, text: "Задача 4"}, {id: 5, text: "Задача 5"}, ]
-    //     },
-    //     {
-    //         id: 3,
-    //         title: "Готово",
-    //         tasks: [{id: 6, text: "Задача 6"}, {id: 7, text: "Задача 7"}, ]
-    //     },
-    // ]);
-
     const [board, setBoard] = useState({
         tasks: {
             "1": {id: "1", text: "Задача 1"},
@@ -135,37 +119,83 @@ const Board = () => {
         })
     }
 
+    const handleDragStart = (event) => {
+
+    }
+
+    const handleDragOver = (event) => {
+
+    }
+
+    const findColumnOfTask = (board, taskID) => {
+        return Object.keys(board.columns).find(
+            columnId => board.columns[columnId].taskIds.includes(taskID)
+        )
+    }
+
+    const handleDragEnd = (event) => {
+        const { active, over } = event
+
+        if (!over || active === over) return
+
+        setBoard((prev) => {
+            const columnId = findColumnOfTask(prev, active.id)
+
+            const column = prev.columns[columnId]
+
+            console.log(columnId)
+            console.log(column)
+
+            const oldIndex = column.taskIds.indexOf(active.id)
+            const newIndex = column.taskIds.indexOf(over.id)
+
+            // console.log(prev)
+            return {
+                ...prev,
+                columns: {
+                    ...prev.columns,
+                    [columnId]: {
+                        ...column,
+                        taskIds: arrayMove(column.taskIds, oldIndex, newIndex)
+                    }
+                }
+            }
+        })
+    }
+
     return (
-        <div className="board">
-            {board.columnOrder.map((columnId) => {
-                const column = board.columns[columnId]
+        <DndContext onDragStart={handleDragStart} onDragOver={handleDragOver} onDragEnd={handleDragEnd}>
+            <div className="board">
+                {board.columnOrder.map((columnId) => {
+                    const column = board.columns[columnId]
+                    const tasks = column.taskIds.map((taskId) => board.tasks[taskId])
 
-                const tasks = column.taskIds.map((taskId) => board.tasks[taskId])
+                    return (
+                        <Column 
+                        id={column.id}
+                        key={column.title}
+                        title={column.title} 
+                        tasks={tasks} 
+                        onAddTask={(text) => addTask(columnId, text)} 
+                        onRemoveTask={(taskId) => removeTask(columnId, taskId)}/>
+                    )
+                })}
 
-                return (
-                    <Column 
-                    key={column.title}
-                    title={column.title} 
-                    tasks={tasks} 
-                    onAddTask={(text) => addTask(columnId, text)} 
-                    onRemoveTask={(taskId) => removeTask(columnId, taskId)}/>
-                )
-            })}
-
-            {isAddingColumn ? (
-                <div className="board__addColumn">
-                    <input 
-                        type="text" 
-                        placeholder="Название колонки"
-                        value={newTitle}
-                        onChange={(e) => setNewTitle(e.target.value)}
-                    />
-                    <button onClick={addColumn}>Добавить </button>
-                </div>
-            ) : (
-                <button className="board__addColumnButton" onClick={() => setIsAddingColumn(true)}>+ Добавить колонку</button>
-            )}
-        </div>
+                {isAddingColumn ? (
+                    <div className="board__addColumn">
+                        <input 
+                            type="text" 
+                            placeholder="Название колонки"
+                            value={newTitle}
+                            onChange={(e) => setNewTitle(e.target.value)}
+                        />
+                        <button onClick={addColumn}>Добавить </button>
+                    </div>
+                ) : (
+                    <button className="board__addColumnButton" onClick={() => setIsAddingColumn(true)}>+ Добавить колонку</button>
+                )}
+            </div>
+        </DndContext>
     )
 }
 
