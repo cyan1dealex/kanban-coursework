@@ -1,18 +1,39 @@
 import { useState } from 'react'
 import TaskCard from './TaskCard'
 import { useDroppable } from '@dnd-kit/core'
-import { SortableContext } from '@dnd-kit/sortable'
+import { horizontalListSortingStrategy, SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable'
 
 const Column = ({ id, title, tasks, onAddTask, onRemoveTask }) => {
     const [columnTitle, setColumnTitle] = useState(title)
     const [isAddingTask, setIsAddingTask] = useState(false)
     const [text, setText] = useState("")
 
-    const {isOver, setNodeRef} = useDroppable({
-        id: `droppable-${id}`
+    const {attributes, listeners, setNodeRef: setSortableRef, transform, transition, isDragging} = useSortable({
+        id: id,
+        data: {
+            type: "column",
+            columnId: id,
+        },
+    })
+
+    const {isOver, setNodeRef: setDroppableRef} = useDroppable({
+        id: id,
+        data: {
+            type: "column",
+            columnId: id,
+        },
     })
     const style = {
-        color: isOver ? 'red' : undefined,
+        transform: transform
+        ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
+        : undefined,
+        transition,
+        opacity: isDragging ? 0.5 : 1
+    }
+
+    const setRefs = (node) => {
+        setSortableRef(node)
+        setDroppableRef(node)
     }
 
     const handleSubmit = () => {
@@ -24,7 +45,9 @@ const Column = ({ id, title, tasks, onAddTask, onRemoveTask }) => {
     }
 
     return (
-        <div ref={setNodeRef} style={style} className="column">
+        <div ref={setRefs} style={style} className="column">
+            <div {...listeners} className="dragHandle">☰</div>
+            
             <div className="column__title">
                 <input 
                     className="column__input"
@@ -33,9 +56,9 @@ const Column = ({ id, title, tasks, onAddTask, onRemoveTask }) => {
                     onChange={(e) => setColumnTitle(e.target.value)}/>
             </div>
 
-            <SortableContext items={tasks.map(t => t.id)}>
+            <SortableContext items={tasks.map(t => t.id)} strategy={verticalListSortingStrategy}>
                 {tasks.map((task) => (
-                    <TaskCard key={task.id} task={task} onDelete={() => onRemoveTask(task.id)}></TaskCard>
+                    <TaskCard key={task.id} task={task} columnId={id} onDelete={() => onRemoveTask(task.id)}></TaskCard>
                 ))}
             </SortableContext>
 
