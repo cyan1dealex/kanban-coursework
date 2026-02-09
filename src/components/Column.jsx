@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import TaskCard from './TaskCard'
 import { SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable'
 
@@ -6,6 +6,14 @@ const Column = ({ id, title, tasks, onAddTask, onRemoveTask }) => {
     const [columnTitle, setColumnTitle] = useState(title)
     const [isAddingTask, setIsAddingTask] = useState(false)
     const [text, setText] = useState("")
+
+    const inputRef = useRef(null)
+    
+    useEffect(() => {
+        if (isAddingTask && inputRef.current) {
+            inputRef.current.focus();
+        }
+    }, [isAddingTask])
 
     const {listeners, setNodeRef, transform, transition, isDragging} = useSortable({
         id: id,
@@ -61,6 +69,12 @@ const Column = ({ id, title, tasks, onAddTask, onRemoveTask }) => {
                             value={text}
                             onChange={(e) => setText(e.target.value)}
                             onPointerDown={(e) => {e.stopPropagation();}}
+                            onKeyDown={(e) => {
+                                if (e.key === ' ') e.stopPropagation();
+                                if (e.key === 'Enter') {e.stopPropagation(); handleSubmit()} 
+                                if (e.key === 'Escape') {setIsAddingTask(false); setText("")}
+                            }}
+                            ref={inputRef}
                         />
                         <button onPointerDown={(e) => {e.stopPropagation();}} onClick={handleSubmit}>Добавить </button>
                     </div>

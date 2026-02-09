@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Column from './Column'
-import {  DndContext, DragOverlay } from '@dnd-kit/core';
-import { arrayMove, horizontalListSortingStrategy, SortableContext } from '@dnd-kit/sortable';
+import {  DndContext, DragOverlay, KeyboardSensor, PointerSensor, pointerWithin, useSensor, useSensors } from '@dnd-kit/core';
+import { arrayMove, horizontalListSortingStrategy, SortableContext, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 import TaskCardOverlay from './TaskCardOverlay';
 import ColumnOverlay from './ColumnOverlay';
 
@@ -41,6 +41,25 @@ const Board = () => {
 
     const [activeTask, setActiveTask] = useState(null)
     const [activeColumn, setActiveColumn] = useState(null)
+
+    // const sensors = useSensors(
+    //     useSensor(PointerSensor, {
+    //         activationConstraint: {
+    //             distance: 8,
+    //         },
+    //     }),
+    //     useSensor(KeyboardSensor, {
+    //         coordinateGetter: sortableKeyboardCoordinates,
+    //     })
+    // );
+
+    const inputRef = useRef(null)
+
+    useEffect(() => {
+        if (isAddingColumn && inputRef.current) {
+            inputRef.current.focus();
+        }
+    }, [isAddingColumn])
 
     const addColumn = () => {
         if (!newTitle.trim()) return
@@ -143,12 +162,8 @@ const Board = () => {
         const activeId = active.id
         const overId = over.id
 
-        if (activeId === overId) return
-
         const fromColumnId = active.data.current.columnId
         const toColumnId = over.data.current.columnId
-
-        if (fromColumnId === toColumnId) return
 
         // Перемещение внутри колонок
         if (activeType === overType && fromColumnId === toColumnId) {
@@ -207,10 +222,12 @@ const Board = () => {
         }
 
         // Перемещение колонок
-        if (activeType === "column" && overType === "column") {
+        if (activeType === "column") {
             setBoard((prev) => {
                 const oldIndex = prev.columnOrder.indexOf(active.id);
-                const newIndex = prev.columnOrder.indexOf(over.id);
+                const newIndex = overType === "column" 
+                ? prev.columnOrder.indexOf(over.id) 
+                : prev.columnOrder.indexOf(over.data.current.columnId);
                 
                 return {
                     ...prev,
@@ -227,7 +244,7 @@ const Board = () => {
 
     return (
         <>
-            <DndContext onDragStart={handleDragStart} onDragOver={handleDragOver} onDragEnd={handleDragEnd}>
+            <DndContext collisionDetection={pointerWithin} onDragStart={handleDragStart} onDragOver={handleDragOver} onDragEnd={handleDragEnd}>
                 <div className="board">
                     <SortableContext items={board.columnOrder} strategy={horizontalListSortingStrategy}>
                         {board.columnOrder.map((columnId) => {
@@ -255,6 +272,11 @@ const Board = () => {
                                 placeholder="Название колонки"
                                 value={newTitle}
                                 onChange={(e) => setNewTitle(e.target.value)}
+                                ref={inputRef}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter') {addColumn()} 
+                                    if (e.key === 'Escape') {setIsAddingColumn(false); setNewTitle("")}
+                                }}
                             />
                             <button onClick={addColumn}>Добавить </button>
                         </div>
