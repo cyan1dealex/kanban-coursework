@@ -1,22 +1,13 @@
 import { useState } from 'react'
 import TaskCard from './TaskCard'
-import { useDroppable } from '@dnd-kit/core'
-import { horizontalListSortingStrategy, SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable'
+import { SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable'
 
 const Column = ({ id, title, tasks, onAddTask, onRemoveTask }) => {
     const [columnTitle, setColumnTitle] = useState(title)
     const [isAddingTask, setIsAddingTask] = useState(false)
     const [text, setText] = useState("")
 
-    const {attributes, listeners, setNodeRef: setSortableRef, transform, transition, isDragging} = useSortable({
-        id: id,
-        data: {
-            type: "column",
-            columnId: id,
-        },
-    })
-
-    const {isOver, setNodeRef: setDroppableRef} = useDroppable({
+    const {listeners, setNodeRef, transform, transition, isDragging} = useSortable({
         id: id,
         data: {
             type: "column",
@@ -27,13 +18,7 @@ const Column = ({ id, title, tasks, onAddTask, onRemoveTask }) => {
         transform: transform
         ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
         : undefined,
-        transition,
-        opacity: isDragging ? 0.5 : 1
-    }
-
-    const setRefs = (node) => {
-        setSortableRef(node)
-        setDroppableRef(node)
+        opacity: isDragging ? 0.5 : 1,
     }
 
     const handleSubmit = () => {
@@ -45,37 +30,44 @@ const Column = ({ id, title, tasks, onAddTask, onRemoveTask }) => {
     }
 
     return (
-        <div ref={setRefs} style={style} className="column">
-            <div {...listeners} className="dragHandle">☰</div>
-            
-            <div className="column__title">
-                <input 
-                    className="column__input"
-                    type="text" placeholder="Название колонки" 
-                    value={columnTitle} 
-                    onChange={(e) => setColumnTitle(e.target.value)}/>
-            </div>
-
-            <SortableContext items={tasks.map(t => t.id)} strategy={verticalListSortingStrategy}>
-                {tasks.map((task) => (
-                    <TaskCard key={task.id} task={task} columnId={id} onDelete={() => onRemoveTask(task.id)}></TaskCard>
-                ))}
-            </SortableContext>
-
-            {isAddingTask ? (
-                <div className="column__addTask">
+        <div ref={setNodeRef} style={style} className="column">
+            <div {...listeners} style={{backgroundColor: isDragging ? '#6f2338' : '#1f23383a'}} 
+            className="column__inner">
+                <div className="column__title">
                     <input 
-                        type="text" 
-                        placeholder="Текст задачи"
-                        value={text}
-                        onChange={(e) => setText(e.target.value)}
-                    />
-                    <button onClick={handleSubmit}>Добавить </button>
+                        className="column__input"
+                        style={{color: isDragging ? 'transparent' : 'black'}}
+                        type="text" placeholder="Название колонки" 
+                        value={columnTitle} 
+                        onChange={(e) => setColumnTitle(e.target.value)}
+                        onPointerDown={(e) => {e.stopPropagation();}}
+                        />
                 </div>
-            ) : (
-                <button onClick={() => setIsAddingTask(true)}>+ Добавить карточку</button>
-            )}
-            
+
+                <div className="column__tasks" style={{opacity: isDragging ? 0 : 1}}>
+                    <SortableContext items={tasks.map(t => t.id)} strategy={verticalListSortingStrategy}>
+                        {tasks.map((task) => (
+                                <TaskCard key={task.id} task={task} columnId={id} onDelete={() => onRemoveTask(task.id)}></TaskCard>
+                            )
+                        )}
+                    </SortableContext>
+                </div>
+
+                {isAddingTask ? (
+                    <div className="column__addTask">
+                        <input 
+                            type="text" 
+                            placeholder="Текст задачи"
+                            value={text}
+                            onChange={(e) => setText(e.target.value)}
+                            onPointerDown={(e) => {e.stopPropagation();}}
+                        />
+                        <button onPointerDown={(e) => {e.stopPropagation();}} onClick={handleSubmit}>Добавить </button>
+                    </div>
+                ) : (
+                    <button style={{opacity: isDragging ? '0' : '1'}} onPointerDown={(e) => {e.stopPropagation();}} onClick={() => setIsAddingTask(true)}>+ Добавить карточку</button>
+                )}
+            </div>
         </div>
     )
 }

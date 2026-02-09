@@ -1,24 +1,14 @@
 @import "./normalize.css";
 
 body {
-    padding: 30px;
-}
 
-.dragHandle {
-    cursor: grab;
-}
-
-.taskCard.overlay {
-    box-shadow: 0 5px 15px rgb(0, 0, 0);
-    background-color: white;
-    z-index: 1000;
 }
 
 .board {
     display: flex;
-    column-gap: 30px;
+    height: 100vh;
+    width: 100vw;
     background-color: rgba(0, 0, 0, 0.068);
-    padding: 30px;
 }
 
 .board__addColumn {
@@ -33,19 +23,48 @@ body {
 }
 
 .column {
+    width: 15%;
+    padding-inline: 15px;
+}
+
+.column__tasks, .columnOverlay__tasks {
     display: flex;
     flex-direction: column;
-    min-width: 15%;
+    row-gap: 10px;
+}
+
+.column__inner {
+    cursor: grab;
+    position: relative;
+    display: flex;
+    flex-direction: column;
     row-gap: 10px;
     padding: 20px;
     background-color: #5b5e6346;
+    align-self: flex-start;
+}
+
+.columnOverlay {
+    padding-inline: 15px;
+}
+
+.columnOverlay__inner {
+    cursor: grab;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    padding: 20px;
+    background-color: #5b5e6346;
+    box-shadow: 0 0 15px rgb(0, 0, 0);
+    z-index: 1000;
 }
 
 .column__title {
 
 }
 
-.column__input {
+.column__input, .columnOverlay__title {
+    width: 100%;
     padding: 5px;
     font-size: 20px;
     font-weight: bold;
@@ -64,8 +83,34 @@ body {
 }
 
 .taskCard {
+    box-sizing: border-box;
+    cursor: grab;
+    position: relative;
     display: flex;
     justify-content: space-between;
     padding: 10px;
     background-color: #1f23383a;
+    border: 3px solid transparent;
+    border-radius: 8px;
+}
+
+.taskCard:hover {
+    border-color: aliceblue;
+}
+
+.taskCard__text {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word; 
+}
+
+.taskCardOverlay {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #1f23383a;
+    box-shadow: 0 0 15px rgb(0, 0, 0);
+    border: 3px solid aliceblue;
+    z-index: 1000;
+    border-radius: 8px;
 }

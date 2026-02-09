@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import Column from './Column'
-import { closestCorners, DndContext, DragOverlay } from '@dnd-kit/core';
+import {  DndContext, DragOverlay } from '@dnd-kit/core';
 import { arrayMove, horizontalListSortingStrategy, SortableContext } from '@dnd-kit/sortable';
-import TaskCard from './TaskCard';
+import TaskCardOverlay from './TaskCardOverlay';
+import ColumnOverlay from './ColumnOverlay';
 
 const Board = () => {
     const [board, setBoard] = useState({
@@ -37,7 +38,9 @@ const Board = () => {
 
     const [isAddingColumn, setIsAddingColumn] = useState(false)
     const [newTitle, setNewTitle] = useState("")
+
     const [activeTask, setActiveTask] = useState(null)
+    const [activeColumn, setActiveColumn] = useState(null)
 
     const addColumn = () => {
         if (!newTitle.trim()) return
@@ -125,10 +128,14 @@ const Board = () => {
         if (active.data.current.type === "task") {
             setActiveTask(active.id)
         }
+        if (active.data.current.type === "column") {
+            setActiveColumn(board.columns[active.id])
+        }
     }
 
-    const handleDragEnd = (event) => {
+    const handleDragOver = (event ) => {
         const { active, over } = event
+        if (!over) return
 
         const activeType = active.data.current.type
         const overType = over.data.current.type
@@ -136,10 +143,12 @@ const Board = () => {
         const activeId = active.id
         const overId = over.id
 
+        if (activeId === overId) return
+
         const fromColumnId = active.data.current.columnId
         const toColumnId = over.data.current.columnId
 
-        if (!over || active === over) return
+        if (fromColumnId === toColumnId) return
 
         // Перемещение внутри колонок
         if (activeType === overType && fromColumnId === toColumnId) {
@@ -168,8 +177,8 @@ const Board = () => {
                 const oldColumn = prev.columns[fromColumnId]
                 const newColumn = prev.columns[toColumnId]
 
-                // const oldIndex = oldColumn.taskIds.indexOf(active.id)
-                // const newIndex = oldColumn.taskIds.indexOf(over.id)
+                if (!oldColumn || !newColumn) return prev;
+                if (newColumn.taskIds.includes(activeId)) return prev;
                 
                 const targetTaskIds = [...newColumn.taskIds]
                 const index = targetTaskIds.indexOf(overId)
@@ -197,31 +206,48 @@ const Board = () => {
             })
         }
 
+        // Перемещение колонок
+        if (activeType === "column" && overType === "column") {
+            setBoard((prev) => {
+                const oldIndex = prev.columnOrder.indexOf(active.id);
+                const newIndex = prev.columnOrder.indexOf(over.id);
+                
+                return {
+                    ...prev,
+                    columnOrder: arrayMove(prev.columnOrder, oldIndex, newIndex)
+                };
+            });
+        }
+    };
+
+    const handleDragEnd = (event) => {
         setActiveTask(null)
+        setActiveColumn(null)
     }
 
     return (
         <>
-            <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+            <DndContext onDragStart={handleDragStart} onDragOver={handleDragOver} onDragEnd={handleDragEnd}>
                 <div className="board">
                     <SortableContext items={board.columnOrder} strategy={horizontalListSortingStrategy}>
                         {board.columnOrder.map((columnId) => {
                             const column = board.columns[columnId]
-                            const tasks = column.taskIds.map((taskId) => board.tasks[taskId])
+                            const tasks = column.taskIds.map((taskId) => board.tasks[taskId]).filter(Boolean)
 
                             return (
                                 <Column 
-                                id={column.id}
-                                key={column.title}
-                                title={column.title} 
-                                tasks={tasks} 
-                                onAddTask={(text) => addTask(columnId, text)} 
-                                onRemoveTask={(taskId) => removeTask(columnId, taskId)}/>
+                                    id={column.id}
+                                    key={column.id}
+                                    title={column.title} 
+                                    tasks={tasks}
+                                    activeTask={activeTask}
+                                    onAddTask={(text) => addTask(columnId, text)} 
+                                    onRemoveTask={(taskId) => removeTask(columnId, taskId)}
+                                />
                             )
                         })}
                     </SortableContext>
                     
-
                     {isAddingColumn ? (
                         <div className="board__addColumn">
                             <input 
@@ -236,9 +262,12 @@ const Board = () => {
                         <button className="board__addColumnButton" onClick={() => setIsAddingColumn(true)}>+ Добавить колонку</button>
                     )}
                 </div>
-                <DragOverlay>
+                <DragOverlay dropAnimation={null}>
                     {activeTask ? (
-                    <TaskCard task={board.tasks[activeTask]} overlay />
+                    <TaskCardOverlay task={board.tasks[activeTask]} />
+                    ) : null}
+                    {activeColumn ? (
+                        <ColumnOverlay column={activeColumn} tasks={activeColumn.taskIds?.map(id => board.tasks[id]).filter(Boolean) || []}/>
                     ) : null}
                 </DragOverlay>
             </DndContext>

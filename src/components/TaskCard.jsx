@@ -1,6 +1,6 @@
 import { useSortable } from "@dnd-kit/sortable";
 
-const TaskCard = ({ task, onDelete, columnId, overlay }) => {
+const TaskCard = ({ task, onDelete, columnId }) => {
     const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({
         id: task.id,
         data: {
@@ -9,19 +9,25 @@ const TaskCard = ({ task, onDelete, columnId, overlay }) => {
         },
     })
     const style = {
-        transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
+        transform: transform
+        ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
+        : undefined,
+        opacity: isDragging ? 0.3 : 1,
+        backgroundColor: isDragging ? '#6f2338' : '#1f23383a',
+        color: isDragging ? 'transparent' : 'black'
     };
 
     return (
-        <div className={`taskCard ${overlay ? 'overlay' : ''}`} ref={setNodeRef} style={style} {...attributes} >
-            <div {...listeners} className="dragHandle">☰</div>
+        <div className="taskCard" ref={setNodeRef} style={style} {...listeners} {...attributes} >
             
-            {task.text}
+            <p className="taskCard__text">
+                {task.text}
+            </p>
             
-            <button onClick={(e) => {
-                    e.stopPropagation()
-                    onDelete()
-                }}
+            <button 
+                onPointerDown={(e) => {e.stopPropagation();}} 
+                onClick={(e) => {onDelete()}}
+                style={{opacity: isDragging ? 0 : 1}}
             >x</button>
         </div>
     )
