@@ -16,7 +16,6 @@ const ColumnOverlay = ({ column, tasks }) => {
                             key={task.id} 
                             task={task}
                             columnId={column.id} 
-                            onDelete={() => {}} 
                         />
                     ))}
                 </div>

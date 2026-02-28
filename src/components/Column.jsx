@@ -1,8 +1,11 @@
-import { useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import TaskCard from './TaskCard'
 import { SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable'
+import { BoardContext } from '../context/BoardContext'
 
-const Column = ({ id, title, tasks, onAddTask, onRemoveTask }) => {
+const Column = ({ id, title, tasks}) => {
+    const { addTask } = useContext(BoardContext)
+
     const [columnTitle, setColumnTitle] = useState(title)
     const [isAddingTask, setIsAddingTask] = useState(false)
     const [text, setText] = useState("")
@@ -15,7 +18,7 @@ const Column = ({ id, title, tasks, onAddTask, onRemoveTask }) => {
         }
     }, [isAddingTask])
 
-    const {listeners, setNodeRef, transform, transition, isDragging} = useSortable({
+    const {listeners, setNodeRef, transform, isDragging} = useSortable({
         id: id,
         data: {
             type: "column",
@@ -32,7 +35,7 @@ const Column = ({ id, title, tasks, onAddTask, onRemoveTask }) => {
     const handleSubmit = () => {
         if (!text.trim()) return;
 
-        onAddTask(text)
+        addTask(id, text)
         setText("")
         setIsAddingTask(false)
     }
@@ -55,7 +58,7 @@ const Column = ({ id, title, tasks, onAddTask, onRemoveTask }) => {
                 <div className="column__tasks" style={{opacity: isDragging ? 0 : 1}}>
                     <SortableContext items={tasks.map(t => t.id)} strategy={verticalListSortingStrategy}>
                         {tasks.map((task) => (
-                                <TaskCard key={task.id} task={task} columnId={id} onDelete={() => onRemoveTask(task.id)}></TaskCard>
+                                <TaskCard key={task.id} task={task} columnId={id}></TaskCard>
                             )
                         )}
                     </SortableContext>

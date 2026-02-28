@@ -1,6 +1,10 @@
 import { useSortable } from "@dnd-kit/sortable";
+import { useContext } from "react";
+import { BoardContext } from "../context/BoardContext";
 
-const TaskCard = ({ task, onDelete, columnId }) => {
+const TaskCard = ({ task, columnId }) => {
+    const { removeTask } = useContext(BoardContext)
+
     const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({
         id: task.id,
         data: {
@@ -8,6 +12,7 @@ const TaskCard = ({ task, onDelete, columnId }) => {
             columnId: columnId,
         },
     })
+
     const style = {
         transform: transform
         ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
@@ -26,7 +31,7 @@ const TaskCard = ({ task, onDelete, columnId }) => {
             
             <button 
                 onPointerDown={(e) => {e.stopPropagation();}} 
-                onClick={(e) => {onDelete()}}
+                onClick={() => removeTask(columnId, task.id)}
                 style={{opacity: isDragging ? 0 : 1}}
             >x</button>
         </div>
