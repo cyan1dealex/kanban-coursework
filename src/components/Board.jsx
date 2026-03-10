@@ -5,39 +5,57 @@ import { arrayMove, horizontalListSortingStrategy, SortableContext } from '@dnd-
 import TaskCardOverlay from './TaskCardOverlay';
 import ColumnOverlay from './ColumnOverlay';
 import { BoardContext } from '../context/BoardContext';
+import { useParams } from 'react-router-dom';
+import useBoardDnd from '../hooks/useBoardDnd';
 
 const Board = () => {
+    const { boardId } = useParams()
+    
     const { 
-        board, 
-        handleDragStart, 
-        handleDragOver, 
-        handleDragEnd,
+        boards,
+        setBoards,
         isAddingColumn,
         setIsAddingColumn,
         newTitle,
         setNewTitle,
         addColumn,
-        activeColumn,
-        activeTask,
         inputRef
-
     } = useContext(BoardContext)
+    
+    const { 
+        activeTask, 
+        setActiveTask, 
+        activeColumn, 
+        setActiveColumn, 
+        handleDragStart, 
+        handleDragOver, 
+        handleDragEnd 
+    } = useBoardDnd(boardId, boards, setBoards)
+    
+    const handleSubmit = () => {
+        addColumn(boardId)
+        setIsAddingColumn(false)
+    }
+
+    const currentBoard = boards.boards[boardId]
 
     return (
         <>
             <DndContext  collisionDetection={pointerWithin} onDragStart={handleDragStart} onDragOver={handleDragOver} onDragEnd={handleDragEnd}>
                 <div className="board">
-                    <SortableContext items={board.columnOrder} strategy={horizontalListSortingStrategy}>
-                        {board.columnOrder.map((columnId) => {
-                            const column = board.columns[columnId]
-                            const tasks = column.taskIds.map((taskId) => board.tasks[taskId]).filter(Boolean)
+                    <SortableContext items={currentBoard.columnOrder} strategy={horizontalListSortingStrategy}>
+                        {currentBoard.columnOrder.map((columnId) => {
+                            const column = currentBoard.columns[columnId]
+                            const tasks = column.taskIds.map((taskId) => currentBoard.tasks[taskId]).filter(Boolean)
 
                             return (
-                                <Column 
+                                <Column
+                                    boardId={boardId} 
                                     id={column.id}
                                     key={column.id}
                                     title={column.title} 
-                                    tasks={tasks}/>
+                                    tasks={tasks}
+                                />
                             )
                         })}
                     </SortableContext>
@@ -51,11 +69,11 @@ const Board = () => {
                                 onChange={(e) => setNewTitle(e.target.value)}
                                 ref={inputRef}
                                 onKeyDown={(e) => {
-                                    if (e.key === 'Enter') {addColumn()} 
+                                    if (e.key === 'Enter') {handleSubmit} 
                                     if (e.key === 'Escape') {setIsAddingColumn(false); setNewTitle("")}
                                 }}
                             />
-                            <button onClick={addColumn}>Добавить </button>
+                            <button onClick={handleSubmit}>Добавить </button>
                         </div>
                     ) : (
                         <button className="board__addColumnButton" onClick={() => setIsAddingColumn(true)}>+ Добавить колонку</button>
@@ -63,10 +81,10 @@ const Board = () => {
                 </div>
                 <DragOverlay dropAnimation={null}>
                     {activeTask ? (
-                    <TaskCardOverlay task={board.tasks[activeTask]} />
+                    <TaskCardOverlay task={currentBoard.tasks[activeTask]} />
                     ) : null}
                     {activeColumn ? (
-                        <ColumnOverlay column={activeColumn} tasks={activeColumn.taskIds?.map(id => board.tasks[id]).filter(Boolean) || []}/>
+                        <ColumnOverlay column={activeColumn} tasks={activeColumn.taskIds?.map(id => currentBoard.tasks[id]).filter(Boolean) || []}/>
                     ) : null}
                 </DragOverlay>
             </DndContext>

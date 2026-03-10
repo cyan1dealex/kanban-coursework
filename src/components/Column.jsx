@@ -2,8 +2,9 @@ import { useContext, useEffect, useRef, useState } from 'react'
 import TaskCard from './TaskCard'
 import { SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { BoardContext } from '../context/BoardContext'
+import { useParams } from 'react-router-dom'
 
-const Column = ({ id, title, tasks}) => {
+const Column = ({boardId, id, title, tasks}) => {
     const { addTask } = useContext(BoardContext)
 
     const [columnTitle, setColumnTitle] = useState(title)
@@ -25,6 +26,7 @@ const Column = ({ id, title, tasks}) => {
             columnId: id,
         },
     })
+    
     const style = {
         transform: transform
         ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
@@ -35,7 +37,7 @@ const Column = ({ id, title, tasks}) => {
     const handleSubmit = () => {
         if (!text.trim()) return;
 
-        addTask(id, text)
+        addTask(boardId, id, text)
         setText("")
         setIsAddingTask(false)
     }
@@ -58,7 +60,7 @@ const Column = ({ id, title, tasks}) => {
                 <div className="column__tasks" style={{opacity: isDragging ? 0 : 1}}>
                     <SortableContext items={tasks.map(t => t.id)} strategy={verticalListSortingStrategy}>
                         {tasks.map((task) => (
-                                <TaskCard key={task.id} task={task} columnId={id}></TaskCard>
+                                <TaskCard key={task.id} boardId={boardId} task={task} columnId={id}></TaskCard>
                             )
                         )}
                     </SortableContext>

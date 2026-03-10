@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 
 const useBoardState = (initialData) => {
-    const [board, setBoard] = useState(() => {
-        const saved = localStorage.getItem("board")
+    const [boards, setBoards] = useState(() => {
+        const saved = localStorage.getItem("boards")
         return saved ? JSON.parse(saved) : {...initialData}
     });
 
@@ -18,10 +18,10 @@ const useBoardState = (initialData) => {
     }, [isAddingColumn])
 
     useEffect(() => {
-        localStorage.setItem('board', JSON.stringify(board))
-    }, [board])
+        localStorage.setItem('boards', JSON.stringify(boards))
+    }, [boards])
 
-    const addColumn = () => {
+    const addColumn = (boardId) => {
         if (!newTitle.trim()) return
         
         const newColumnId = `column-${Date.now()}`
@@ -32,16 +32,24 @@ const useBoardState = (initialData) => {
             taskIds: [],
         }
 
-        setBoard((prev) => {
+        setBoards((prev) => {
             return {
                 ...prev,
 
-                columns: {
-                    ...prev.columns,
-                    [newColumnId]: newColumn,
-                },
+                boards: {
+                    ...prev.boards,
 
-                columnOrder: [...prev.columnOrder, newColumnId],
+                    [boardId]: {
+                        ...prev.boards[boardId],
+
+                        columns: {
+                            ...prev.boards[boardId].columns,
+                            [newColumnId]: newColumn,
+                        },
+                        columnOrder: [...prev.boards[boardId].columnOrder, newColumnId],
+                    },
+
+                }
             }
         })
 
@@ -49,7 +57,7 @@ const useBoardState = (initialData) => {
         setNewTitle("")
     }
 
-    const addTask = (columnIndex, text) => {
+    const addTask = (boardId, columnIndex, text) => {
         const newTaskId = `task-${Date.now()}`
         
         const newTask = {
@@ -57,55 +65,72 @@ const useBoardState = (initialData) => {
             text
         }
 
-        setBoard((prev) => {
-            const column = prev.columns[columnIndex]
-
+        setBoards((prev) => {
+            const column = prev.boards[boardId].columns[columnIndex]
+            
             return {
                 ...prev,
 
-                tasks: {
-                    ...prev.tasks,
-                    [newTaskId]: newTask
-                },
+                boards: {
+                    ...prev.boards,
 
-                columns: {
-                    ...prev.columns,
-                    [columnIndex]: {
-                        ...column,
-                        taskIds: [...column.taskIds, newTaskId],
-                    },
-                },
+                    [boardId]: {
+                        ...prev.boards[boardId],
+
+                        tasks: {
+                            ...prev.boards[boardId].tasks,
+                            [newTaskId]: newTask
+                        },
+
+                        columns: {
+                            ...prev.boards[boardId].columns,
+                            [columnIndex]: {
+                                ...column,
+                                taskIds: [...column.taskIds, newTaskId],
+                            },
+                        },
+                    }
+                }
             }
         })
     }
 
-    const removeTask = (columnIndex, taskId) => {
-        setBoard((prev) => {
-            const column = prev.columns[columnIndex]
-            const newTasks = {...prev.tasks}
+    const removeTask = (boardId, columnIndex, taskId) => {
+        setBoards((prev) => {
+            const board = prev.boards[boardId];
+            const column = board.columns[columnIndex]
+            const newTasks = {...board.tasks}
             delete newTasks[taskId]
 
             return {
                 ...prev,
 
-                tasks: newTasks,
-
-                columns: {
-                    ...prev.columns,
-                    [columnIndex]: {
-                        ...column,
-                        taskIds: column.taskIds.filter(
-                            (id) => id !== taskId
-                        ),
-                    },
+                boards: {
+                    ...prev.boards,
+                    
+                    [boardId]: {
+                        ...board,
+                        
+                        tasks: newTasks,
+        
+                        columns: {
+                            ...board.columns,
+                            [columnIndex]: {
+                                ...column,
+                                taskIds: column.taskIds.filter(
+                                    (id) => id !== taskId
+                                ),
+                            },
+                        },
+                    }
                 },
             }
         })
     }
 
     return {
-        board,
-        setBoard,
+        boards,
+        setBoards,
         addColumn,
         addTask,
         removeTask,
