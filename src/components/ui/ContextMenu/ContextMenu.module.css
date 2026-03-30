@@ -1,0 +1,15 @@
+.contextMenuWrapper ~ .contextMenuWrapper .contextMenuOverlay {
+	background-color: transparent;
+}
+
+.contextMenuContent {
+	position: fixed;
+	z-index: 10000;
+}
+
+.contextMenuOverlay {
+	position: fixed;
+	inset: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 9999;
+}

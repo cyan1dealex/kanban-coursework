@@ -1,0 +1,69 @@
+.labelsCreateMenu {
+	display: flex;
+	flex-direction: column;
+	row-gap: 10px;
+	background-color: #fff;
+	padding: 15px;
+	border-radius: 8px;
+	width: 350px;
+}
+
+.labelsCreateMenuHeading {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.labelsCreateMenuTitle {
+	font-size: 20px;
+}
+
+.labelsCreateMenuBackButton {
+}
+
+.labelsCreateMenuCloseButton {
+}
+
+.labelsCreateMenuColor {
+	display: flex;
+	flex-direction: column;
+	row-gap: 4px;
+}
+
+.labelsCreateMenuName {
+	display: flex;
+	flex-direction: column;
+	row-gap: 4px;
+}
+
+.labelsCreateMenuPreview {
+	padding: 20px;
+}
+
+.labelsCreateMenuPreviewPill {
+	border-radius: 4px;
+	min-height: 35px;
+	display: flex;
+	align-items: center;
+	padding-left: 10px;
+	font-size: 18px;
+}
+
+.labelsCreateMenuColorInner {
+	height: 200px;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 10px;
+}
+
+.labelsCreateMenuColorPill {
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.labelsCreateMenuColorPill:hover {
+	outline: 3px solid #000;
+}
+
+.labelsCreateMenuButton {
+}

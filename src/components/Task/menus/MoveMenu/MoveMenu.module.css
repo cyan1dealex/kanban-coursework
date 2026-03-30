@@ -1,0 +1,37 @@
+.moveMenu {
+	display: flex;
+	flex-direction: column;
+	row-gap: 10px;
+	background-color: #fff;
+	padding: 15px;
+	border-radius: 8px;
+	width: 350px;
+}
+
+.moveMenuTitle {
+	font-size: 20px;
+}
+
+.moveMenuListPositionBlock {
+	display: flex;
+	justify-content: space-between;
+	column-gap: 10px;
+}
+
+.moveMenuList {
+	flex-grow: 1;
+}
+
+.moveMenuBoardDropdown,
+.moveMenuListDropdown {
+	/* display: flex; */
+	width: 100%;
+	min-width: 100%;
+	box-sizing: border-box;
+}
+
+.closeMoveMenuButton {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+}

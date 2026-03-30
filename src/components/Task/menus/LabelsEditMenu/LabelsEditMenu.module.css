@@ -1,0 +1,71 @@
+.labelsEditMenu {
+	display: flex;
+	flex-direction: column;
+	row-gap: 10px;
+	background-color: #fff;
+	padding: 15px;
+	border-radius: 8px;
+	width: 350px;
+}
+
+.labelsEditMenuHeading {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.labelsEditMenuTitle {
+	font-size: 20px;
+}
+
+.labelsEditMenuBackButton {
+}
+
+.labelsEditMenuCloseButton {
+}
+
+.labelsEditMenuColor {
+	display: flex;
+	flex-direction: column;
+	row-gap: 4px;
+}
+
+.labelsEditMenuName {
+	display: flex;
+	flex-direction: column;
+	row-gap: 4px;
+}
+
+.labelsEditMenuPreview {
+	padding: 20px;
+}
+
+.labelsEditMenuPreviewPill {
+	border-radius: 4px;
+	min-height: 35px;
+	display: flex;
+	align-items: center;
+	padding-left: 10px;
+	font-size: 18px;
+}
+
+.labelsEditMenuColorInner {
+	height: 200px;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 10px;
+}
+
+.labelsEditMenuColorPill {
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.labelsEditMenuColorPill:hover {
+	outline: 3px solid #000;
+}
+
+.labelsEditMenuButtons {
+	display: flex;
+	justify-content: space-between;
+}

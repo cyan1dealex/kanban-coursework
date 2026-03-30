@@ -1,0 +1,52 @@
+.labelsMenu {
+	display: flex;
+	flex-direction: column;
+	row-gap: 10px;
+	background-color: #fff;
+	padding: 15px;
+	border-radius: 8px;
+	width: 350px;
+}
+
+.labelsMenuTitle {
+	font-size: 20px;
+}
+
+.labelsMenuList {
+	display: flex;
+	flex-direction: column;
+	row-gap: 6px;
+}
+
+.labelsMenuItem {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	column-gap: 4px;
+}
+
+.labelsMenuPill {
+	display: flex;
+	align-items: center;
+	flex-grow: 1;
+	min-height: 35px;
+	border-radius: 8px;
+}
+
+.labelsMenuPillTitle {
+	display: block;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	line-height: 35px;
+	padding-inline: 8px;
+}
+
+.labelsMenuCreateButton {
+}
+
+.closeLabelsMenuButton {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+}

@@ -1,0 +1,51 @@
+.copyMenu {
+	display: flex;
+	flex-direction: column;
+	row-gap: 10px;
+	background-color: #fff;
+	padding: 15px;
+	border-radius: 8px;
+	width: 350px;
+}
+
+.copyMenuTitle {
+	font-size: 20px;
+}
+
+.copyMenuNameBlock {
+	display: flex;
+	flex-direction: column;
+	row-gap: 4px;
+}
+
+.copyMenuNameTitle {
+}
+
+.copyMenuTextarea {
+	resize: none;
+	overflow: hidden;
+}
+
+.copyMenuListPositionBlock {
+	display: flex;
+	justify-content: space-between;
+	column-gap: 10px;
+}
+
+.copyMenuList {
+	flex-grow: 1;
+}
+
+.copyMenuBoardDropdown,
+.copyMenuListDropdown {
+	/* display: flex; */
+	width: 100%;
+	min-width: 100%;
+	box-sizing: border-box;
+}
+
+.closeCopyMenuButton {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+}

@@ -1,0 +1,85 @@
+.taskMenuWrapper {
+	display: flex;
+	align-items: flex-start;
+	gap: 10px;
+}
+
+.taskMenuContent {
+	display: flex;
+	flex-direction: column;
+	row-gap: 8px;
+}
+
+.textAreaSaveInput {
+	position: relative;
+	display: block;
+	background-color: #dddddd;
+	border: 3px solid #969696;
+	border-radius: 8px;
+	padding: 10px;
+	background: white;
+	box-shadow: 0 1px 0 rgba(9, 30, 66, 0.25);
+	font-family: inherit;
+	font-size: 16px;
+	overflow: hidden;
+	resize: none;
+}
+
+.saveButton {
+	background-color: #0079bf;
+	color: white;
+	border: none;
+	padding: 8px 16px;
+	border-radius: 3px;
+	cursor: pointer;
+}
+
+.sideActions {
+	display: flex;
+	flex-direction: column;
+	row-gap: 6px;
+}
+
+.actionButton {
+	background: white;
+	color: #000;
+	border: none;
+	padding: 6px 12px;
+	border-radius: 3px;
+	cursor: pointer;
+	text-align: left;
+	white-space: nowrap;
+}
+
+.taskMenuTextAreaWrapper {
+	position: relative;
+}
+
+.taskMenuLabels {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	right: 10px;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px;
+	z-index: 20000;
+}
+
+.taskMenuLabel {
+	width: calc((100% - 12px) / 4);
+
+	height: 8px;
+	border-radius: 4px;
+}
+
+.taskMenuDeadlines {
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+	right: 10px;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px;
+	z-index: 20000;
+}

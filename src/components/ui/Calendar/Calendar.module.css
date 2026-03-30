@@ -1,0 +1,97 @@
+.calendar {
+	width: 100%;
+}
+
+.calendarHeader {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 10px 10px 10px;
+}
+
+.calendarHeader span {
+	font-weight: 600;
+	text-transform: capitalize;
+}
+
+.calendarHeader button {
+	background: none;
+	border: none;
+	cursor: pointer;
+	padding: 5px 10px;
+	border-radius: 3px;
+}
+
+.calendarHeader button:hover {
+	background-color: #ebecf0;
+}
+
+.calendarDayNames {
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+	margin-bottom: 5px;
+}
+
+.dayName {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 12px;
+	font-weight: 700;
+	color: #5e6c84;
+	min-height: 30px;
+}
+
+.calendarGrid {
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+}
+
+.calendarGridItem {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 40px;
+	cursor: pointer;
+	font-size: 14px;
+	position: relative;
+	transition: background-color 0.1s;
+}
+
+/* Эффект наведения для обычных дней */
+.calendarGridItem:hover:not(.selectedStart):not(.selectedEnd):not(.inRange) {
+	background-color: #ebecf0;
+	border-radius: 3px;
+}
+
+/* Начало диапазона */
+.selectedStart {
+	background-color: #0079bf !important;
+	color: white !important;
+	border-top-left-radius: 4px;
+	border-bottom-left-radius: 4px;
+}
+
+/* Конец диапазона */
+.selectedEnd {
+	background-color: #0079bf !important;
+	color: white !important;
+	border-top-right-radius: 4px;
+	border-bottom-right-radius: 4px;
+}
+
+/* Если выбрана только одна дата (старт и конец совпадают) */
+.selectedStart.selectedEnd {
+	border-radius: 4px !important;
+}
+
+/* Дни внутри промежутка */
+.inRange {
+	background-color: #e4f0f6 !important; /* Светло-голубой фон */
+	color: #0079bf !important;
+	border-radius: 0;
+}
+
+.notCurrentMonth {
+	opacity: 0.3;
+}

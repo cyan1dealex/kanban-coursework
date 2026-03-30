@@ -1,18 +1,18 @@
 import { useState } from "react";
 import { arrayMove } from '@dnd-kit/sortable';
 
-const useBoardDnd = (boardId, boards, setBoards) => {
+const useBoardDnd = (boardId, boardsState, setBoardsState) => {
     const [activeTask, setActiveTask] = useState(null)
     const [activeColumn, setActiveColumn] = useState(null)
 
-    const currentBoard = boards.boards[boardId];
+    const currentBoard = boardsState.boards[boardId];
 
     const handleDragStart = ({ active }) => {
         if (active.data.current.type === "task") {
             setActiveTask(active.id)
         }
         if (active.data.current.type === "column") {
-            setActiveColumn(currentBoard.columns[active.id])
+            setActiveColumn(boardsState.columns[active.id])
         }
     }
 
@@ -31,8 +31,8 @@ const useBoardDnd = (boardId, boards, setBoards) => {
 
         // Перемещение внутри колонок
         if (activeType === overType && fromColumnId === toColumnId) {
-            setBoards((prev) => {
-                const column = currentBoard.columns[fromColumnId]
+            setBoardsState((prev) => {
+                const column = boardsState.columns[fromColumnId]
 
                 const oldIndex = column.taskIds.indexOf(active.id)
                 const newIndex = column.taskIds.indexOf(over.id)
@@ -40,30 +40,23 @@ const useBoardDnd = (boardId, boards, setBoards) => {
                 return {
                     ...prev,
 
-                    boards: {
-                        ...prev.boards,
+                    columns: {
+                        ...prev.columns,
 
-                        [boardId]: {
-                            ...currentBoard,
-
-                            columns: {
-                                ...currentBoard.columns,
-                                [fromColumnId]: {
-                                    ...column,
-                                    taskIds: arrayMove(column.taskIds, oldIndex, newIndex)
-                                }
-                            }
+                        [fromColumnId]: {
+                            ...column,
+                            taskIds: arrayMove(column.taskIds, oldIndex, newIndex)
                         }
-                    }
+                    },
                 }
             })
         }
 
         // Перемещение между колонками
         if (activeType === "task" && fromColumnId !== toColumnId) {
-            setBoards((prev) => {
-                const oldColumn = currentBoard.columns[fromColumnId]
-                const newColumn = currentBoard.columns[toColumnId]
+            setBoardsState((prev) => {
+                const oldColumn = boardsState.columns[fromColumnId]
+                const newColumn = boardsState.columns[toColumnId]
 
                 if (!oldColumn || !newColumn) return prev;
                 if (newColumn.taskIds.includes(activeId)) return prev;
@@ -76,41 +69,33 @@ const useBoardDnd = (boardId, boards, setBoards) => {
                 return {
                     ...prev,
 
-                    boards: {
-                        ...prev.boards,
+                    columns: {
+                        ...prev.columns,
 
-                        [boardId]: {
-                            ...currentBoard,
-
-                            columns: {
-                                ...currentBoard.columns,
-
-                                [fromColumnId]: {
-                                    ...oldColumn,
-                                    taskIds: oldColumn.taskIds.filter(
-                                        (id) => id !== activeId
-                                    )
-                                },
-                                [toColumnId]: {
-                                    ...newColumn,
-                                    taskIds: overType === "task" 
-                                    ? targetTaskIds
-                                    : [...newColumn.taskIds, activeId]
-                                }
-                            }
+                        [fromColumnId]: {
+                            ...oldColumn,
+                            taskIds: oldColumn.taskIds.filter(
+                                (id) => id !== activeId
+                            )
+                        },
+                        [toColumnId]: {
+                            ...newColumn,
+                            taskIds: overType === "task" 
+                            ? targetTaskIds
+                            : [...newColumn.taskIds, activeId]
                         }
-                    }
+                    },
                 }
             })
         }
 
         // Перемещение колонок
         if (activeType === "column" && overType === "column") {
-            setBoards((prev) => {
-                const oldIndex = currentBoard.columnOrder.indexOf(active.id);
+            setBoardsState((prev) => {
+                const oldIndex = currentBoard.columnIds.indexOf(active.id);
                 const newIndex = overType === "column" 
-                ? currentBoard.columnOrder.indexOf(over.id) 
-                : currentBoard.columnOrder.indexOf(over.data.current.columnId);
+                ? currentBoard.columnIds.indexOf(over.id) 
+                : currentBoard.columnIds.indexOf(over.data.current.columnId);
                 
                 return {
                     ...prev,
@@ -121,7 +106,7 @@ const useBoardDnd = (boardId, boards, setBoards) => {
                         [boardId]: {
                             ...currentBoard,
                             
-                            columnOrder: arrayMove(currentBoard.columnOrder, oldIndex, newIndex)
+                            columnIds: arrayMove(currentBoard.columnIds, oldIndex, newIndex)
                         }
                     }
                 };

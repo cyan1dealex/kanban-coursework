@@ -1,0 +1,142 @@
+.dueDateMenu {
+	display: flex;
+	flex-direction: column;
+	row-gap: 15px;
+	background-color: #fff;
+	padding: 15px;
+	border-radius: 8px;
+	width: 320px;
+	box-shadow:
+		0 8px 16px -4px rgba(9, 30, 66, 0.25),
+		0 0 0 1px rgba(9, 30, 66, 0.08);
+	position: relative;
+}
+
+.dueDateMenuTitle {
+	font-size: 20px;
+	font-weight: 600;
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+/* Стилизация групп полей (Начало и Срок) */
+.dueDateMenuStartFieldset,
+.dueDateMenuEndFieldset {
+	border: none;
+	padding: 0;
+	margin: 0;
+}
+
+.dueDateMenuStartTitle,
+.dueDateMenuEndTitle {
+	font-size: 12px;
+	font-weight: 700;
+	color: #5e6c84;
+	margin-bottom: 4px;
+}
+
+.dueDateMenuStartFields,
+.dueDateMenuEndFields {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.dueDateMenuStartInputsBlock,
+.dueDateMenuEndInputsBlock {
+	display: flex;
+	gap: 8px;
+	flex-grow: 1;
+}
+
+/* Инпуты */
+.dueDateMenuStartInput,
+.dueDateMenuEndInput {
+	width: 100%;
+	padding: 8px;
+	border: 2px solid #dfe1e6;
+	border-radius: 3px;
+	background-color: #fafbfc;
+	font-size: 14px;
+}
+
+.dueDateMenuStartInput:focus,
+.dueDateMenuEndInput:focus {
+	border-color: #0079bf;
+	background-color: #fff;
+	outline: none;
+}
+
+/* Кнопки действий */
+.dueDateMenuActions {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	margin-top: 10px;
+}
+
+.dueDateMenuSaveButton {
+	background-color: #0079bf;
+	color: white;
+	border: none;
+	padding: 8px;
+	border-radius: 3px;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.dueDateMenuSaveButton:hover {
+	background-color: #026aa7;
+}
+
+.dueDateMenuRemoveButton {
+	background-color: #f4f5f7;
+	color: #172b4d;
+	border: none;
+	padding: 8px;
+	border-radius: 3px;
+	cursor: pointer;
+}
+
+.dueDateMenuRemoveButton:hover {
+	background-color: #ebecf0;
+}
+
+.labelsDueDateMenuCloseButton {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	border: none;
+	background: none;
+	font-size: 18px;
+	color: #6b778c;
+	cursor: pointer;
+}
+
+.dueDateMenuFieldset input {
+	padding: 4px;
+}
+
+/* Убирает иконку календаря в Chrome, Safari и Edge */
+.dueDateMenuFieldset input[type='date']::-webkit-calendar-picker-indicator {
+	display: none;
+	-webkit-appearance: none;
+}
+
+/* Дополнительно: убирает крестик очистки (если нужно) */
+.dueDateMenuFieldset input[type='date']::-webkit-clear-button {
+	display: none;
+	-webkit-appearance: none;
+}
+
+/* Для Firefox (скрывает иконку через обнуление отступа) */
+.dueDateMenuFieldset input[type='date'] {
+	appearance: none;
+	-moz-appearance: textfield;
+}
+
+.closeDueDateMenuButton {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+}
