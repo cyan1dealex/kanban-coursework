@@ -1,0 +1,1 @@
+export { MenuDotsIcon } from './MenuDotsIcon'

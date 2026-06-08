@@ -1,0 +1,7 @@
+.board {
+	display: flex;
+	align-items: stretch;
+	column-gap: 20px;
+	min-height: 100%;
+	height: max-content;
+}

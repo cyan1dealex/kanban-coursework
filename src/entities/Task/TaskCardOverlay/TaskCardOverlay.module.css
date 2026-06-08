@@ -1,0 +1,101 @@
+.taskCardOverlay {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	row-gap: 12px;
+	background-color: var(--color-bg-card);
+	border: var(--border);
+	border-radius: var(--border-radius-small);
+	padding: 16px;
+
+	transform: rotate(3deg);
+	box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+	cursor: grabbing;
+	z-index: 999;
+}
+
+.taskCardOverlayInfo {
+	display: flex;
+	align-items: start;
+	column-gap: 10px;
+}
+
+.taskCardOverlayText {
+	margin: 0;
+	word-break: break-word;
+	overflow-wrap: break-word;
+	white-space: pre-wrap;
+	flex-grow: 1;
+	color: var(--color-text-main);
+}
+
+.taskCardOverlayLabels {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+}
+
+.taskCardOverlayLabel {
+	font-size: 12px;
+	border-radius: var(--border-radius-tiny);
+	padding-inline: 6px;
+	padding-block: 2px;
+	font-weight: normal;
+	min-width: 60px;
+	max-width: 90px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	min-height: 24px;
+	max-height: 24px;
+	border: var(--border-thin);
+}
+
+.taskCardOverlayInfoBlock {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 6px;
+	font-size: 12px;
+}
+
+.taskCardOverlayDeadlines {
+	border-radius: var(--border-radius-tiny);
+	background-color: var(--deadlinesBGColor);
+	padding: 4px 8px;
+	color: var(--deadlineTextColor);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.taskCardOverlayDeadlinesInner {
+	display: flex;
+	align-items: center;
+	column-gap: 6px;
+}
+
+.taskCardOverlayDeadlinesInner span {
+	line-height: 0.9;
+}
+
+.taskCardOverlayDescription {
+	display: flex;
+	align-items: center;
+}
+
+.taskCardOverlayChecklists {
+	display: flex;
+	gap: 8px;
+	flex-wrap: wrap;
+}
+
+.taskCardOverlayChecklist {
+	display: flex;
+	align-items: center;
+	column-gap: 6px;
+}
+
+.taskCardOverlayChecklist span {
+	line-height: 0.9;
+}

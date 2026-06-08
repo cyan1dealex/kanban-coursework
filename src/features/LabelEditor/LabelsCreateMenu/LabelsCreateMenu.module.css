@@ -1,0 +1,70 @@
+.labelsCreateMenu {
+	display: flex;
+	flex-direction: column;
+	row-gap: 10px;
+}
+
+.labelsCreateMenuColor {
+	display: flex;
+	flex-direction: column;
+	row-gap: 4px;
+}
+
+.labelsCreateMenuName {
+	display: flex;
+	flex-direction: column;
+	row-gap: 4px;
+}
+
+.labelsCreateMenuNameInput {
+	background-color: transparent;
+	border: var(--border);
+	border-radius: var(--border-radius-small);
+	padding: 10px 16px;
+}
+
+.labelsCreateMenuPreview {
+	padding-block: 20px;
+}
+
+.labelsCreateMenuPreviewPill {
+	border: var(--border);
+	border-color: currentColor;
+	border-radius: var(--border-radius-small);
+	min-height: 35px;
+	display: flex;
+	align-items: center;
+	padding-left: 10px;
+
+	& span {
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		width: 100%;
+	}
+}
+
+.labelsCreateMenuColorInner {
+	height: 200px;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 10px;
+}
+
+.labelsCreateMenuColorPill {
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.labelsCreateMenuColorPill:hover {
+	outline: 3px solid #000;
+}
+
+.labelsCreateMenuButton {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 35px;
+	border: var(--border-thin);
+	border-radius: var(--border-radius-small);
+}

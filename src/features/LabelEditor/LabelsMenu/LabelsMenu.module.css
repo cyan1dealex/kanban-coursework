@@ -1,0 +1,52 @@
+.labelsMenuList {
+	display: flex;
+	flex-direction: column;
+	row-gap: 6px;
+}
+
+.labelsMenuItem {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	column-gap: 4px;
+}
+
+.labelsMenuPill {
+	display: flex;
+	align-items: center;
+	flex-grow: 1;
+	min-height: 35px;
+	min-width: 0;
+	border: var(--border);
+	border-color: currentColor;
+	border-radius: var(--border-radius-small);
+
+	& span {
+		display: block;
+		max-width: 100%;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		padding-inline: 10px;
+	}
+}
+
+.labelsMenuCreateButton {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 35px;
+	border: var(--border-thin);
+	border-radius: var(--border-radius-small);
+	cursor: pointer;
+	transition-duration: var(--transition-duration);
+}
+
+.labelsMenuCreateButton:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.labelsMenuCreateButton:not(:disabled):hover {
+	background-color: var(--color-bg-column);
+}

@@ -1,0 +1,25 @@
+:root {
+	--color-bg-page: #0d0d0f;
+	--color-bg-header: #111111;
+	--color-bg-sidebar: #0d0d0f;
+	--color-bg-column: #18181b;
+	--color-bg-column-hover: #151518;
+	--color-bg-card: #222225;
+	--color-bg-card-hover: #1b1b1d;
+
+	--color-text-main: #ffffff;
+	--color-text-subtle: #a1a1aa;
+	--color-text-muted: #52525b;
+	--font-family: 'Inter', sans-serif;
+	--color-accent: #e11d48;
+
+	--color-border: #434345;
+	--border: 3px solid var(--color-border);
+	--border-thin: 1px solid currentColor;
+	--border-hover: 3px solid var(--color-accent);
+	--border-radius-tiny: 4px;
+	--border-radius-small: 8px;
+	--border-radius-medium: 12px;
+
+	--transition-duration: 0.3s;
+}

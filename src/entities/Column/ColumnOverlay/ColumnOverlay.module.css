@@ -1,0 +1,45 @@
+.columnOverlay {
+	width: 300px;
+	flex-shrink: 0;
+	cursor: grabbing;
+}
+
+.columnOverlayInner {
+	background-color: var(--color-bg-column);
+	align-self: start;
+	display: flex;
+	flex-direction: column;
+	row-gap: 16px;
+	padding: 16px;
+	border-radius: var(--border-radius-medium);
+}
+
+.columnOverlayHeader {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	column-gap: 4px;
+}
+
+.columnOverlayTitle {
+	padding: 10px;
+	font-size: 22px;
+	font-weight: 600;
+}
+
+.columnOverlayTasks {
+	display: flex;
+	flex-direction: column;
+	row-gap: 16px;
+}
+
+.columnOverlayButton {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: transparent;
+	padding: 20px;
+	border: var(--border);
+	border-radius: var(--border-radius-small);
+	transition-duration: var(--transition-duration);
+}

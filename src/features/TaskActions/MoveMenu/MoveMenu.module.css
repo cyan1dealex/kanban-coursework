@@ -1,0 +1,21 @@
+.moveMenu {
+	display: flex;
+	flex-direction: column;
+	row-gap: 10px;
+}
+
+.moveMenuListPositionBlock {
+	display: flex;
+	justify-content: space-between;
+	column-gap: 10px;
+}
+
+.moveMenuList {
+	flex-grow: 1;
+}
+
+.moveMenuButton {
+	border: var(--border);
+	border-radius: var(--border-radius-small);
+	padding: 6px 8px;
+}

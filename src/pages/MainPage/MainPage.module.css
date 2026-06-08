@@ -1,0 +1,53 @@
+.mainPage {
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	row-gap: 20px;
+}
+
+.mainPageList {
+	display: flex;
+	align-items: start;
+	gap: 16px;
+	flex-wrap: wrap;
+}
+
+.mainPageBoardCard {
+	position: relative;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	border: var(--border);
+	border-radius: var(--border-radius-small);
+	padding-inline: 70px;
+	padding-block: 50px;
+	min-height: 150px;
+	max-width: 500px;
+	transition-duration: var(--transition-duration);
+
+	& span {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		font-size: 22px;
+		font-weight: 600;
+	}
+
+	&:hover {
+		border-color: var(--color-accent);
+
+		& .mainPageBoardMenuButton {
+			display: flex !important;
+		}
+	}
+}
+
+.mainPageBoardMenuButton {
+	display: none !important;
+	position: absolute;
+	top: 6px;
+	right: 6px;
+}

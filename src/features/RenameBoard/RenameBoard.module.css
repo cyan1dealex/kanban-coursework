@@ -1,0 +1,39 @@
+.boardTitleEditingContainer {
+	display: inline-flex;
+	align-items: center;
+	border-radius: var(--border-radius-small);
+	padding: 8px 16px;
+	box-sizing: border-box;
+	background-color: var(--color-bg-column-hover);
+
+	max-width: 100%;
+	min-width: 0;
+	flex-shrink: 1;
+}
+
+.inlineText {
+	font-size: 30px;
+	font-weight: 600;
+	font-family: inherit;
+	color: var(--color-text-main);
+	max-width: 100%;
+}
+
+.boardTitle {
+	display: inline-block;
+	font-size: 30px;
+	font-weight: 600;
+	font-family: inherit;
+	max-width: 100%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	padding: 8px 16px;
+	border-radius: var(--border-radius-small);
+	transition-duration: var(--transition-duration);
+}
+
+.boardTitle:hover {
+	background-color: var(--color-bg-column-hover);
+	cursor: text;
+}

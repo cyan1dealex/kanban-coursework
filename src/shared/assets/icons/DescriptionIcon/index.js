@@ -1,0 +1,1 @@
+export { DescriptionIcon } from './DescriptionIcon'

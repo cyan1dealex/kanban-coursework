@@ -1,0 +1,64 @@
+.addBoardWrapper {
+	display: flex;
+	flex-direction: column;
+	row-gap: 8px;
+	min-width: 200px;
+	max-width: 500px;
+}
+
+.addBoardInputWrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 150px;
+
+	border: var(--border);
+	border-radius: var(--border-radius-small);
+	padding: 50px 70px;
+
+	transition-property: background-color, border-color;
+	transition-duration: var(--transition-duration);
+}
+
+.addBoardInput {
+	font-size: 22px;
+	font-weight: 600;
+}
+
+.addBoardNav {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+
+	gap: 16px;
+}
+
+.addBoardBtn {
+	border: var(--border);
+	border-radius: var(--border-radius-small);
+	padding: 8px 20px;
+}
+
+.addBoardButton {
+	display: block;
+	text-align: center;
+
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+
+	color: var(--color-accent);
+	font-size: 22px;
+	font-weight: 600;
+	border: var(--border);
+	border-radius: var(--border-radius-small);
+	padding-inline: 70px;
+	padding-block: 50px;
+	min-height: 150px;
+	max-width: 440px;
+	transition-duration: var(--transition-duration);
+
+	&:hover {
+		color: var(--color-text-main);
+		border-color: var(--color-accent);
+	}
+}

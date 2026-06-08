@@ -1,0 +1,14 @@
+{
+	"compilerOptions": {
+		"paths": {
+			"@app/*": ["src/app/*"],
+			"@entities/*": ["src/entities/*"],
+			"@features/*": ["src/features/*"],
+			"@shared/*": ["src/shared/*"],
+			"@pages/*": ["src/pages/*"],
+			"@widgets/*": ["src/widgets/*"],
+			"@processes/*": ["src/processes/*"]
+		}
+	},
+	"include": ["src"]
+}

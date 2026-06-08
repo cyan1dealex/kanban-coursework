@@ -1,0 +1,149 @@
+.taskMenuWrapper {
+	display: flex;
+	align-items: flex-start;
+	gap: 10px;
+}
+
+.taskMenuContent {
+	display: flex;
+	flex-direction: column;
+	row-gap: 8px;
+}
+
+.taskMenuTextAreaWrapper {
+	display: flex;
+	flex-direction: column;
+	row-gap: 12px;
+	background-color: var(--color-bg-card);
+	border: var(--border);
+	border-radius: var(--border-radius-small);
+	padding: 16px;
+}
+
+.taskMenuTextareaContainer {
+	width: 100%;
+	display: flex;
+	align-items: start;
+	box-sizing: border-box;
+	column-gap: 10px;
+}
+
+.taskMenuTextarea {
+	width: 100%;
+	overflow: hidden;
+	white-space: pre-wrap;
+	word-break: break-word;
+	border: none;
+	resize: none;
+	padding: 0;
+	margin: 0;
+	background-color: transparent;
+	outline: none;
+}
+
+.saveButton {
+	background-color: var(--color-bg-card);
+	border: var(--border);
+	border-color: var(--color-text-subtle);
+	padding: 8px 16px;
+	border-radius: var(--border-radius-small);
+	cursor: pointer;
+	transition-duration: var(--transition-duration);
+}
+
+.saveButton:hover {
+	border-color: var(--color-accent);
+}
+
+.sideActions {
+	display: flex;
+	flex-direction: column;
+	row-gap: 6px;
+}
+
+.actionButton {
+	background: var(--color-bg-card);
+	border: var(--border);
+	padding: 6px 12px;
+	border-radius: var(--border-radius-small);
+	cursor: pointer;
+	text-align: left;
+	white-space: nowrap;
+	transition-duration: var(--transition-duration);
+}
+
+.actionButton:hover {
+	border-color: var(--color-text-subtle);
+}
+
+.taskMenuLabels {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	z-index: 2000;
+}
+
+.taskMenuLabel {
+	font-size: 12px;
+	border-radius: var(--border-radius-tiny);
+	padding-inline: 6px;
+	padding-block: 2px;
+	font-weight: normal;
+	min-width: 60px;
+	max-width: 90px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	min-height: 24px;
+	border: 1px solid currentColor;
+}
+
+.taskMenuInfoBlock {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 6px;
+	font-size: 12px;
+}
+
+.taskMenuDeadlines {
+	border-radius: var(--border-radius-tiny);
+	background-color: var(--deadlinesBGColor);
+	padding: 4px 8px;
+	color: var(--deadlineTextColor);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition-duration: var(--transition-duration);
+}
+
+.taskMenuDeadlinesInner {
+	display: flex;
+	align-items: center;
+	column-gap: 6px;
+
+	& span {
+		line-height: 0.9;
+	}
+}
+
+.taskMenuDescription {
+	display: flex;
+	align-items: center;
+}
+
+.taskMenuChecklists {
+	display: flex;
+	gap: 8px;
+	flex-wrap: wrap;
+}
+
+.taskMenuChecklist {
+	display: flex;
+	align-items: center;
+	column-gap: 6px;
+
+	& span {
+		line-height: 0.9;
+	}
+}

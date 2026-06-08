@@ -1,0 +1,96 @@
+.boardPage {
+	height: 100vh;
+	width: 100%;
+	display: flex;
+	overflow: hidden;
+}
+
+.main {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	overflow: hidden;
+}
+
+.header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding-inline: 20px;
+	padding-block: 10px;
+
+	height: 60px;
+	background-color: var(--color-bg-header);
+	border-bottom: var(--border);
+	flex-shrink: 0;
+}
+
+.boardPageNav {
+	height: 100%;
+	display: flex;
+	column-gap: 16px;
+}
+
+.boardPageFilterButtonWrapper {
+	height: 100%;
+}
+
+.boardPageFilterButton {
+	width: 100%;
+	height: 100%;
+}
+
+.boardContainer {
+	flex-grow: 1;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	row-gap: 20px;
+	overflow: hidden;
+}
+
+.boardInner {
+	display: flex;
+	flex-direction: column;
+	row-gap: 20px;
+	height: 100%;
+	overflow-x: auto;
+	overflow-y: hidden;
+}
+
+.boardHeader {
+	display: flex;
+	align-items: center;
+	column-gap: 16px;
+}
+
+.boardMenuButton {
+	box-shadow: inset 0 0 0 2px var(--color-border);
+}
+
+.boardContent {
+	display: flex;
+	flex-direction: row;
+	column-gap: 20px;
+	height: 100%;
+
+	overflow-x: auto;
+	overflow-y: auto;
+
+	padding-bottom: 10px;
+}
+
+.boardDeleteButton {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: transparent;
+	border: none;
+	border: var(--border);
+	border-radius: var(--border-radius-small);
+	box-shadow: inset 0 0 0 0px transparent;
+	color: var(--color-text-main);
+	min-height: 40px;
+	padding-inline: 16px;
+	transition-duration: var(--transition-duration);
+}

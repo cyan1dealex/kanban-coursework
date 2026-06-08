@@ -1,0 +1,55 @@
+.columnMenuWrapper {
+	display: flex;
+	column-gap: 16px;
+}
+
+.columnMenuContent {
+	background-color: var(--color-bg-column);
+	display: flex;
+	flex-direction: column;
+	align-self: start;
+	row-gap: 16px;
+	padding: 16px;
+	border-radius: var(--border-radius-medium);
+	transition-duration: var(--transition-duration);
+}
+
+.columnMenuTextarea {
+	font-size: 22px;
+	font-weight: 600;
+	border: var(--border);
+	border-radius: var(--border-radius-small);
+	padding: 10px;
+	width: 100%;
+	transition-property: background-color, border-color;
+	transition-duration: var(--transition-duration);
+
+	&:focus {
+		background-color: var(--color-bg-card);
+		border-color: var(--color-text-main);
+	}
+}
+
+.columnMenuSaveButton {
+	background-color: var(--color-bg-card);
+	border: var(--border-hover);
+	padding: 8px 16px;
+	border-radius: var(--border-radius-small);
+	cursor: pointer;
+}
+
+.columnMenuSideActions {
+	display: flex;
+	flex-direction: column;
+	row-gap: 6px;
+}
+
+.actionButton {
+	background: var(--color-bg-column);
+	border: var(--border);
+	padding: 8px 24px;
+	border-radius: var(--border-radius-small);
+	cursor: pointer;
+	text-align: left;
+	white-space: nowrap;
+}

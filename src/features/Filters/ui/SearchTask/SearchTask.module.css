@@ -1,0 +1,12 @@
+.searchTaskInput {
+	background-color: transparent;
+	border: var(--border);
+	border-radius: var(--border-radius-small);
+	padding-block: 6px;
+	padding-inline: 12px;
+	transition-duration: var(--transition-duration);
+}
+
+.searchTaskInput:focus {
+	border-color: var(--color-accent);
+}

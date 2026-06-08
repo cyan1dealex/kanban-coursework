@@ -1,0 +1,16 @@
+.closeButton {
+	color: var(--color-text-subtle);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: var(--border);
+	border-radius: var(--border-radius-small);
+	transition-duration: var(--transition-duration);
+}
+
+.closeButton:hover {
+	color: var(--color-text-main);
+	background-color: var(--color-bg-column);
+	border: var(--border);
+	border-radius: var(--border-radius-small);
+}

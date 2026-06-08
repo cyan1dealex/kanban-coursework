@@ -1,0 +1,108 @@
+.descriptionEditor {
+	padding: 16px;
+	border: var(--border);
+	border-radius: var(--border-radius-small);
+	display: flex;
+	flex-direction: column;
+	row-gap: 8px;
+}
+
+.descriptionEditorToolbar {
+	display: flex;
+	column-gap: 16px;
+}
+
+.descriptionEditorTextarea :global(.ProseMirror) {
+	padding-block: 20px;
+	min-height: 150px;
+	outline: none !important;
+	color: var(--color-text-main);
+	line-height: 1.5;
+}
+
+.descriptionEditorTextarea :global(.ProseMirror) p {
+	margin-top: 0;
+	margin-bottom: 10px;
+}
+
+.descriptionEditorTextarea :global(.ProseMirror) p:last-child {
+	margin-bottom: 0;
+}
+
+.descriptionEditorTextarea :global(.ProseMirror) h1,
+.descriptionEditorTextarea :global(.ProseMirror) h2,
+.descriptionEditorTextarea :global(.ProseMirror) h3 {
+	margin-bottom: 8px;
+	font-weight: 600;
+	line-height: 1.3;
+}
+
+.descriptionEditorTextarea :global(.ProseMirror) ul,
+.descriptionEditorTextarea :global(.ProseMirror) ol {
+	padding-left: 20px;
+	margin-top: 0;
+	margin-bottom: 10px;
+}
+
+.descriptionEditorTextarea :global(.ProseMirror) li {
+	margin-bottom: 4px;
+}
+
+.descriptionEditorTextarea :global(.ProseMirror) a {
+	color: var(--color-accent);
+	text-decoration: underline;
+	cursor: text;
+	pointer-events: none;
+}
+
+.descriptionEditorHeadingDropdown,
+.descriptionEditorListsDropdown {
+	background-color: transparent;
+	color: var(--color-text-main);
+	border: var(--border);
+	border-radius: var(--border-radius-tiny);
+	padding: 6px 20px;
+}
+
+.descriptionEditorButtonBold,
+.descriptionEditorButtonItalic {
+	width: 33px;
+	aspect-ratio: 1;
+	border: var(--border);
+	border-radius: var(--border-radius-tiny);
+	transition-duration: var(--transition-duration);
+}
+
+.descriptionEditorButtonBold.active,
+.descriptionEditorButtonItalic.active {
+	border-color: var(--color-accent) !important;
+}
+
+.descriptionEditorLink {
+	border: var(--border);
+	border-radius: var(--border-radius-tiny);
+	padding-inline: 8px;
+}
+
+.editorActions {
+	display: flex;
+	column-gap: 8px;
+}
+
+.saveBtn,
+.cancelBtn {
+	padding: 6px 20px;
+	border: var(--border);
+	border-radius: var(--border-radius-small);
+	transition-duration: var(--transition-duration);
+	cursor: pointer;
+	background-color: transparent;
+}
+
+.saveBtn:hover {
+	border-color: var(--color-accent);
+}
+
+.cancelBtn:hover {
+	border-color: var(--color-text-subtle);
+}

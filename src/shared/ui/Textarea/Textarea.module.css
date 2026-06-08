@@ -1,0 +1,10 @@
+.textarea {
+	display: block;
+	background-color: transparent;
+	border: none;
+	overflow: hidden;
+	resize: none;
+	padding: 0;
+	box-sizing: border-box;
+	min-height: 0;
+}

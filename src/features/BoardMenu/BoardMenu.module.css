@@ -1,0 +1,69 @@
+.boardMenuWrapper {
+	display: flex;
+	column-gap: 16px;
+}
+
+.boardMenuContent {
+	background-color: transparent;
+	display: flex;
+	flex-direction: column;
+	align-self: start;
+	row-gap: 16px;
+	max-width: 500px;
+	transition-duration: var(--transition-duration);
+}
+
+.boardMenuInputWrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	background-color: var(--color-bg-column);
+	border: var(--border);
+	border-radius: var(--border-radius-small);
+	box-sizing: border-box;
+	padding-inline: 70px;
+
+	transition-property: background-color, border-color;
+	transition-duration: var(--transition-duration);
+}
+
+.boardMenuTextareaWrapper:focus-within {
+	border-color: var(--color-text-main);
+}
+
+.boardMenuInput {
+	font-size: 22px;
+	font-weight: 600;
+	text-align: center;
+	color: var(--color-text-main);
+	width: 100%;
+}
+
+.boardMenuSideActions {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.boardMenuSaveButton {
+	background-color: var(--color-bg-column);
+	border: var(--border-hover);
+	width: 200px;
+	padding-block: 10px;
+	border-radius: var(--border-radius-small);
+	cursor: pointer;
+}
+
+.actionButton {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: var(--color-bg-column);
+	border: var(--border);
+	width: 200px;
+	padding-block: 10px;
+	border-radius: var(--border-radius-small);
+	cursor: pointer;
+	white-space: nowrap;
+}

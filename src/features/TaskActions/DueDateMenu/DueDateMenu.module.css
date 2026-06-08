@@ -1,0 +1,76 @@
+.dueDateMenu {
+	display: flex;
+	flex-direction: column;
+	row-gap: 15px;
+}
+
+.dueDateMenuStartFieldset,
+.dueDateMenuEndFieldset {
+	border: none;
+	padding: 0;
+	margin: 0;
+}
+
+.dueDateMenuStartEnd {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.dueDateMenuFieldsetTitle {
+	font-size: 12px;
+	font-weight: 700;
+	color: var(--color-text-main);
+}
+
+.dueDateMenuInputs {
+	display: flex;
+	align-items: center;
+	column-gap: 8px;
+}
+
+.dueDateMenuInput {
+	width: 100%;
+	padding: 4px;
+	border: var(--border-thin);
+	border-radius: var(--border-radius-tiny);
+	background-color: transparent;
+	font-size: 14px;
+}
+
+.dueDateMenuInput:focus {
+	border: var(--border-hover);
+}
+
+.dueDateMenuInput:disabled {
+	color: var(--color-text-muted);
+	border-color: var(--color-text-muted);
+}
+
+.dueDateMenuButtons {
+	display: flex;
+	flex-direction: column;
+	row-gap: 10px;
+}
+
+.saveButton,
+.removeButton {
+	border: var(--border);
+	border-radius: var(--border-radius-small);
+	padding: 8px;
+}
+
+.dueDateMenuFieldset input[type='date']::-webkit-calendar-picker-indicator {
+	display: none;
+	-webkit-appearance: none;
+}
+
+.dueDateMenuFieldset input[type='date']::-webkit-clear-button {
+	display: none;
+	-webkit-appearance: none;
+}
+
+.dueDateMenuFieldset input[type='date'] {
+	appearance: none;
+	-moz-appearance: textfield;
+}

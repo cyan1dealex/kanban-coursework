@@ -1,0 +1,5 @@
+.filterButton {
+	border: var(--border);
+	border-radius: var(--border-radius-small);
+	padding-inline: 20px;
+}

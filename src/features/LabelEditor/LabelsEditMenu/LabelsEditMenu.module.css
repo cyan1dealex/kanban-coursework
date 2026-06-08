@@ -1,0 +1,82 @@
+.labelsEditMenu {
+	display: flex;
+	flex-direction: column;
+	row-gap: 10px;
+}
+
+.labelsEditMenuColor {
+	display: flex;
+	flex-direction: column;
+	row-gap: 4px;
+}
+
+.labelsEditMenuName {
+	display: flex;
+	flex-direction: column;
+	row-gap: 4px;
+}
+
+.labelsEditMenuNameInput {
+	background-color: transparent;
+	border: var(--border);
+	border-radius: var(--border-radius-small);
+	padding: 10px 16px;
+
+	&:focus {
+		border-color: var(--color-text-main);
+	}
+}
+
+.labelsEditMenuPreview {
+	padding-block: 20px;
+}
+
+.labelsEditMenuPreviewPill {
+	border: var(--border);
+	border-color: currentColor;
+	border-radius: var(--border-radius-small);
+	min-height: 35px;
+	padding-left: 10px;
+	display: flex;
+	align-items: center;
+
+	& span {
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		width: 100%;
+	}
+}
+
+.labelsEditMenuColorInner {
+	height: 200px;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 10px;
+}
+
+.labelsEditMenuColorPill {
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.labelsEditMenuColorPill:hover {
+	outline: 3px solid #000;
+}
+
+.labelsEditMenuButtons {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 16px;
+}
+
+.labelsEditMenuSaveButton,
+.labelsEditMenuDeleteButton {
+	border: var(--border);
+	border-radius: var(--border-radius-small);
+	padding-block: 8px;
+}
+
+.labelsEditMenuSaveButton {
+	border-color: var(--color-accent);
+}

@@ -1,0 +1,37 @@
+.column,
+.columnDragging {
+	width: 300px;
+	flex-shrink: 0;
+}
+
+.columnDragging {
+	opacity: 0.3;
+}
+
+.columnInner {
+	background-color: var(--color-bg-column);
+	align-self: start;
+	display: flex;
+	flex-direction: column;
+	row-gap: 16px;
+	padding: 16px;
+	border-radius: var(--border-radius-medium);
+	transition-duration: var(--transition-duration);
+
+	&:hover {
+		background-color: var(--color-bg-column-hover);
+	}
+}
+
+.columnHeader {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	column-gap: 4px;
+}
+
+.columnTasks {
+	display: flex;
+	flex-direction: column;
+	row-gap: 16px;
+}

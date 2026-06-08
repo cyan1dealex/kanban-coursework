@@ -1,0 +1,54 @@
+.addColumnPrevButton {
+	align-self: start;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: transparent;
+	padding: 16px;
+	border: var(--border);
+	border-radius: var(--border-radius-small);
+	min-width: 300px;
+	transition-duration: var(--transition-duration);
+
+	&:hover {
+		border-color: var(--color-accent);
+	}
+}
+
+.addColumnPrevButton:hover {
+	color: var(--color-accent);
+	border-color: var(--color-accent);
+}
+
+.addColumn {
+	display: flex;
+	flex-direction: column;
+	row-gap: 10px;
+}
+
+.addColumnNav {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	column-gap: 16px;
+}
+
+.addColumnInput {
+	min-width: 300px;
+	font-size: 22px;
+	font-weight: 600;
+	border: var(--border);
+	border-radius: var(--border-radius-small);
+	padding: 20px;
+
+	&:focus {
+		border-color: var(--color-accent);
+	}
+}
+
+.addColumnButton,
+.addColumnCancelButton {
+	background-color: transparent;
+	padding: 10px;
+	border: var(--border);
+	border-radius: var(--border-radius-small);
+}

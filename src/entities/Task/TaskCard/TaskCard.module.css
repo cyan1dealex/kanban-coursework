@@ -1,0 +1,123 @@
+.taskCard,
+.taskCardDragging {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	row-gap: 12px;
+	background-color: var(--color-bg-card);
+	border: var(--border);
+	border-radius: var(--border-radius-small);
+	padding: 16px;
+	transition-duration: var(--transition-duration);
+	cursor: pointer;
+
+	&:hover {
+		border-color: var(--color-accent);
+	}
+}
+
+.taskCardDragging {
+	cursor: grabbing;
+	opacity: 0.3;
+}
+
+.taskCard:hover .checkbox {
+	display: flex;
+}
+
+.taskCard .taskCardEditButton {
+	display: none;
+	position: absolute;
+	top: 4px;
+	right: 4px;
+}
+
+.taskCard:hover .taskCardEditButton {
+	display: flex;
+}
+
+.taskCardInfo {
+	display: flex;
+	align-items: start;
+	column-gap: 10px;
+}
+
+.taskCardText {
+	margin: 0;
+	word-break: break-word;
+	overflow-wrap: break-word;
+	white-space: pre-wrap;
+	flex-grow: 1;
+}
+
+.taskCardLabels {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+}
+
+.taskCardLabel {
+	font-size: 12px;
+	border-radius: var(--border-radius-tiny);
+	padding-inline: 6px;
+	padding-block: 2px;
+	font-weight: normal;
+	min-width: 60px;
+	max-width: 90px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	min-height: 24px;
+	max-height: 24px;
+	border: var(--border-thin);
+}
+
+.taskCardInfoBlock {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 6px;
+	font-size: 12px;
+}
+
+.taskCardDeadlines {
+	border-radius: var(--border-radius-tiny);
+	background-color: var(--deadlinesBGColor);
+	padding: 4px 8px;
+	color: var(--deadlineTextColor);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition-duration: var(--transition-duration);
+}
+
+.taskCardDeadlinesInner {
+	display: flex;
+	align-items: center;
+	column-gap: 6px;
+
+	& span {
+		line-height: 0.9;
+	}
+}
+
+.taskCardDescription {
+	display: flex;
+	align-items: center;
+}
+
+.taskCardChecklists {
+	display: flex;
+	gap: 8px;
+	flex-wrap: wrap;
+}
+
+.taskCardChecklist {
+	display: flex;
+	align-items: center;
+	column-gap: 6px;
+
+	& span {
+		line-height: 0.9;
+	}
+}

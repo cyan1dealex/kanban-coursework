@@ -1,0 +1,56 @@
+.checkList {
+	display: flex;
+	flex-direction: column;
+	row-gap: 10px;
+}
+
+.checkListHeading {
+	display: flex;
+	justify-content: space-between;
+}
+
+.checkListTitle {
+	padding: 0;
+}
+
+.checkListElements {
+	display: flex;
+	flex-direction: column;
+	row-gap: 6px;
+	width: 100%;
+}
+
+.checkListElement,
+.checkListElementEditing {
+	display: flex;
+	align-items: center;
+	column-gap: 8px;
+	width: 100%;
+	max-width: 100%;
+	border-radius: var(--border-radius-small);
+	padding-inline: 10px;
+	transition-duration: var(--transition-duration);
+}
+
+.checkListElement:not(.checkListElementEditing):hover {
+	background-color: var(--color-bg-column);
+}
+
+.checkListProgressBarPill {
+	position: relative;
+	height: 3px;
+	background-color: var(--color-text-subtle);
+	width: 100%;
+	transition: width 0.3s ease;
+}
+
+.checkListProgressBarPill::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: var(--progress-color);
+	height: 100%;
+	width: var(--progress-width, 0%);
+	transition: width 0.3s ease;
+}
