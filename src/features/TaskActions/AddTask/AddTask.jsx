@@ -31,7 +31,6 @@ export const AddTask = memo(({ columnId }) => {
 		}
 	}, [isAddingTask])
 
-	// ОПТИМИЗАЦИЯ: стабилизируем сабмит таски
 	const handleSubmit = useCallback(() => {
 		if (!text.trim()) {
 			setIsAddingTask(false)
@@ -54,7 +53,6 @@ export const AddTask = memo(({ columnId }) => {
 		setText('')
 	}, [text, columnId, globalFilters, addTask, addToast])
 
-	// ОПТИМИЗАЦИЯ: стабилизируем отмену
 	const handleCancel = useCallback(() => {
 		setText('')
 		setIsAddingTask(false)
