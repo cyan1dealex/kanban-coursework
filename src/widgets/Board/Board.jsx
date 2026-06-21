@@ -50,7 +50,7 @@ export const Board = () => {
 		handleDragStart,
 		handleDragOver,
 		handleDragEnd,
-	} = useBoardDnd(boardId, boardsState, setBoardsState)
+	} = useBoardDnd(boardId, setBoardsState)
 
 	const currentBoard = boardsState.boards[boardId]
 

@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react'
 import { arrayMove } from '@dnd-kit/sortable'
 
-export const useBoardDnd = (boardId, boardsState, setBoardsState) => {
+export const useBoardDnd = (boardId, setBoardsState) => {
 	const [activeTask, setActiveTask] = useState(null)
 	const [activeColumn, setActiveColumn] = useState(null)
 
@@ -32,16 +32,22 @@ export const useBoardDnd = (boardId, boardsState, setBoardsState) => {
 			const overId = over.id
 
 			const fromColumnId = active.data.current.columnId
-			const toColumnId = over.data.current.columnId
 
-			// Перемещение внутри колонок
-			if (activeType === overType && fromColumnId === toColumnId) {
+			const toColumnId =
+				overType === 'task' ? over.data.current.columnId : over.id
+
+			if (activeType !== 'task' || !fromColumnId || !toColumnId) return
+
+			// Внутри одной колонки
+			if (fromColumnId === toColumnId) {
 				setBoardsState(prev => {
 					const column = prev.columns[fromColumnId]
 					if (!column) return prev
 
 					const oldIndex = column.taskIds.indexOf(activeId)
 					const newIndex = column.taskIds.indexOf(overId)
+
+					if (oldIndex === newIndex || newIndex === -1) return prev
 
 					return {
 						...prev,
@@ -56,8 +62,8 @@ export const useBoardDnd = (boardId, boardsState, setBoardsState) => {
 				})
 			}
 
-			// Перемещение между колонками
-			if (activeType === 'task' && fromColumnId !== toColumnId) {
+			// Между колонками
+			if (fromColumnId !== toColumnId) {
 				setBoardsState(prev => {
 					const oldColumn = prev.columns[fromColumnId]
 					const newColumn = prev.columns[toColumnId]
@@ -68,7 +74,9 @@ export const useBoardDnd = (boardId, boardsState, setBoardsState) => {
 					const targetTaskIds = [...newColumn.taskIds]
 					const index = targetTaskIds.indexOf(overId)
 
-					targetTaskIds.splice(index, 0, activeId)
+					const nextIndex =
+						overType === 'task' && index >= 0 ? index : targetTaskIds.length
+					targetTaskIds.splice(nextIndex, 0, activeId)
 
 					return {
 						...prev,
@@ -80,27 +88,39 @@ export const useBoardDnd = (boardId, boardsState, setBoardsState) => {
 							},
 							[toColumnId]: {
 								...newColumn,
-								taskIds:
-									overType === 'task'
-										? targetTaskIds
-										: [...newColumn.taskIds, activeId],
+								taskIds: targetTaskIds,
 							},
 						},
 					}
 				})
+
+				active.data.current.columnId = toColumnId
 			}
+		},
+		[setBoardsState],
+	)
+
+	const handleDragEnd = useCallback(
+		event => {
+			const { active, over } = event
+
+			setActiveTask(null)
+			setActiveColumn(null)
+
+			if (!over) return
+
+			const activeType = active.data.current.type
+			const activeId = active.id
+			const overId = over.id
 
 			// Перемещение колонок
-			if (activeType === 'column' && overType === 'column') {
+			if (activeType === 'column') {
 				setBoardsState(prev => {
 					const currentBoard = prev.boards[boardId]
 					if (!currentBoard) return prev
 
 					const oldIndex = currentBoard.columnIds.indexOf(activeId)
-					const newIndex =
-						overType === 'column'
-							? currentBoard.columnIds.indexOf(overId)
-							: currentBoard.columnIds.indexOf(over.data.current.columnId)
+					const newIndex = currentBoard.columnIds.indexOf(overId)
 
 					return {
 						...prev,
@@ -121,11 +141,6 @@ export const useBoardDnd = (boardId, boardsState, setBoardsState) => {
 		},
 		[boardId, setBoardsState],
 	)
-
-	const handleDragEnd = useCallback(event => {
-		setActiveTask(null)
-		setActiveColumn(null)
-	}, [])
 
 	return {
 		activeTask,
