@@ -7,9 +7,9 @@ import React, {
 	memo,
 } from 'react'
 import { BoardContext } from '@entities/BoardData/BoardContext'
-import classes from './labelsEditMenu.module.css'
 import { MenuContentLayout } from '@shared/ui/MenuContentLayout'
 import { UIContext } from '@shared/model/UIContext'
+import classes from './LabelsEditMenu.module.css'
 
 const STATIC_COLORS = [
 	'#F44336',
