@@ -114,6 +114,7 @@ export const Board = () => {
 					</Modal>
 				)}
 
+				{/* Меню задачи */}
 				{menu?.type === 'taskMenu' && (
 					<Popover
 						position={menu.position}
@@ -128,6 +129,7 @@ export const Board = () => {
 					</Popover>
 				)}
 
+				{/* Меню колонки */}
 				{menu?.type == 'columnMenu' && (
 					<Popover
 						position={menu.position}
@@ -142,6 +144,7 @@ export const Board = () => {
 					</Popover>
 				)}
 
+				{/* Меню меток */}
 				{subMenu?.type == 'labels' && subMenu.position && (
 					<Popover
 						position={subMenu.position}
@@ -153,6 +156,7 @@ export const Board = () => {
 					</Popover>
 				)}
 
+				{/* Меню создания меток */}
 				{subMenu?.type == 'createLabel' && (
 					<Popover
 						position={subMenu.position}
@@ -164,6 +168,7 @@ export const Board = () => {
 					</Popover>
 				)}
 
+				{/* Меню редактирования метки */}
 				{subMenu?.type == 'editLabel' && (
 					<Popover
 						position={subMenu.position}
@@ -178,6 +183,7 @@ export const Board = () => {
 					</Popover>
 				)}
 
+				{/* Меню дедлайнов */}
 				{subMenu?.type == 'dueDate' && (
 					<Popover
 						position={subMenu.position}
@@ -189,6 +195,7 @@ export const Board = () => {
 					</Popover>
 				)}
 
+				{/* Меню чеклистов */}
 				{subMenu?.type == 'checkLists' && (
 					<Popover
 						position={subMenu.position}
@@ -201,6 +208,7 @@ export const Board = () => {
 					</Popover>
 				)}
 
+				{/* Меню перемещения */}
 				{subMenu?.type == 'move' && (
 					<Popover
 						position={subMenu.position}
@@ -215,6 +223,7 @@ export const Board = () => {
 					</Popover>
 				)}
 
+				{/* Меню копирования */}
 				{subMenu?.type == 'copy' && (
 					<Popover
 						position={subMenu.position}

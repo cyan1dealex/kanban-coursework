@@ -37,9 +37,6 @@ export const TaskModal = ({ taskId }) => {
 	const checklistButtonRef = useRef(null)
 	const labelButtonRef = useRef(null)
 	const dateButtonRef = useRef(null)
-	const startRef = useRef(null)
-	const endRef = useRef(null)
-	const rangeRef = useRef(null)
 
 	const getValidDescription = html => {
 		if (!html) return null
@@ -57,7 +54,10 @@ export const TaskModal = ({ taskId }) => {
 
 	const handleOpenSubMenu = useCallback(
 		(e, type, payload) => {
-			const buttonRect = e.currentTarget.getBoundingClientRect()
+			const targetElement = e.currentTarget
+			if (!targetElement) return
+
+			const buttonRect = targetElement.getBoundingClientRect()
 
 			toggleSubMenu(
 				type,
@@ -95,6 +95,15 @@ export const TaskModal = ({ taskId }) => {
 
 	if (!task) return null
 
+	const isChecklistsMenuOpenFromButton =
+		subMenu?.type === 'checkLists' && subMenu?.payload?.fromButton === true
+
+	const isLabelsMenuOpenFromButton =
+		subMenu?.type === 'labels' && subMenu?.payload?.fromButton === true
+
+	const isDateMenuOpenFromButton =
+		subMenu?.type === 'dueDate' && subMenu?.payload?.fromButton === true
+
 	return (
 		<div className={classes.taskModal}>
 			<div className={classes.taskModalHeader}>
@@ -110,9 +119,14 @@ export const TaskModal = ({ taskId }) => {
 				<button
 					ref={checklistButtonRef}
 					className={classes.actionButton}
-					onClick={e => handleOpenSubMenu(e, 'checkLists', { taskId: task.id })}
+					onClick={e =>
+						handleOpenSubMenu(e, 'checkLists', {
+							taskId: task.id,
+							fromButton: true,
+						})
+					}
 					style={
-						subMenu?.type === 'checkLists'
+						isChecklistsMenuOpenFromButton
 							? { borderColor: 'var(--color-accent)' }
 							: undefined
 					}
@@ -123,9 +137,14 @@ export const TaskModal = ({ taskId }) => {
 				<button
 					ref={labelButtonRef}
 					className={classes.actionButton}
-					onClick={e => handleOpenSubMenu(e, 'labels', { taskId: task.id })}
+					onClick={e =>
+						handleOpenSubMenu(e, 'labels', {
+							taskId: task.id,
+							fromButton: true,
+						})
+					}
 					style={
-						subMenu?.type === 'labels'
+						isLabelsMenuOpenFromButton
 							? { borderColor: 'var(--color-accent)' }
 							: undefined
 					}
@@ -133,12 +152,18 @@ export const TaskModal = ({ taskId }) => {
 				>
 					+ Метки
 				</button>
+
 				<button
 					ref={dateButtonRef}
 					className={classes.actionButton}
-					onClick={e => handleOpenSubMenu(e, 'dueDate', { taskId: task.id })}
+					onClick={e =>
+						handleOpenSubMenu(e, 'dueDate', {
+							taskId: task.id,
+							fromButton: true,
+						})
+					}
 					style={
-						subMenu?.type === 'dueDate'
+						isDateMenuOpenFromButton
 							? { borderColor: 'var(--color-accent)' }
 							: undefined
 					}
@@ -156,9 +181,8 @@ export const TaskModal = ({ taskId }) => {
 							key={label?.id}
 							className={classes.labelsPill}
 							style={{ color: label.color }}
-							onClick={e =>
-								handleOpenSubMenu(e, 'dueDate', { taskId: task.id })
-							}
+							onClick={e => handleOpenSubMenu(e, 'labels', { taskId: task.id })}
+							onPointerDown={e => e.stopPropagation()}
 						>
 							<span>{label.title}</span>
 						</div>
@@ -178,7 +202,6 @@ export const TaskModal = ({ taskId }) => {
 					<h3 className={classes.dueDateTitle}>Срок</h3>
 					{deadlineType === 'start' && (
 						<div
-							ref={startRef}
 							className={classes.dueDateButton}
 							onClick={e =>
 								handleOpenSubMenu(e, 'dueDate', { taskId: task.id })
@@ -189,7 +212,6 @@ export const TaskModal = ({ taskId }) => {
 					)}
 					{deadlineType === 'end' && (
 						<div
-							ref={endRef}
 							className={classes.dueDateButton}
 							onClick={e =>
 								handleOpenSubMenu(e, 'dueDate', { taskId: task.id })
@@ -200,7 +222,6 @@ export const TaskModal = ({ taskId }) => {
 					)}
 					{deadlineType === 'range' && (
 						<div
-							ref={rangeRef}
 							className={classes.dueDateButton}
 							onClick={e =>
 								handleOpenSubMenu(e, 'dueDate', { taskId: task.id })
