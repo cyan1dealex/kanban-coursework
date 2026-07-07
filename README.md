@@ -2,7 +2,7 @@
 
 Веб-приложение для управления задачами на React по методологии Feature-Sliced Design.
 
-🚀 **[Live Demo]({https://kanban-coursework.vercel.app/})**
+🚀 **[Открыть Live Demo](https://kanban-coursework.vercel.app/)**
 
 ---
 
@@ -35,7 +35,7 @@
 
 ```bash
 # Клонировать репозиторий
-git clone [https://github.com/cyan1dealex/kanban-coursework.git](https://github.com/cyan1dealex/kanban-coursework.git)
+git clone https://github.com/cyan1dealex/kanban-coursework.git
 
 # Перейти в папку проекта
 cd kanban-coursework
@@ -45,4 +45,3 @@ npm install
 
 # Запустить локальный сервер
 npm run dev
-```
