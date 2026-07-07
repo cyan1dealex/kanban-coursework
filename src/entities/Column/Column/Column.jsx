@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useContext, useRef } from 'react'
 import { TaskCard } from '@entities/Task/TaskCard'
 import {
 	SortableContext,
@@ -22,16 +22,16 @@ export const Column = ({ boardId, columnId }) => {
 	const columnMenuRef = useRef(null)
 
 	const visibleTaskIds = column.taskIds.filter(taskId => filteredTasks[taskId])
-
 	const visibleTasks = visibleTaskIds.map(taskId => filteredTasks[taskId])
 
-	const { listeners, setNodeRef, transform, isDragging } = useSortable({
-		id: columnId,
-		data: {
-			type: 'column',
-			columnId,
-		},
-	})
+	const { attributes, listeners, setNodeRef, transform, isDragging } =
+		useSortable({
+			id: columnId,
+			data: {
+				type: 'column',
+				columnId,
+			},
+		})
 
 	const style = {
 		transform: transform
@@ -45,8 +45,8 @@ export const Column = ({ boardId, columnId }) => {
 			style={style}
 			className={isDragging ? classes.columnDragging : classes.column}
 		>
-			<div {...listeners} className={classes.columnInner} ref={columnMenuRef}>
-				<div className={classes.columnHeader}>
+			<div className={classes.columnInner} ref={columnMenuRef}>
+				<div {...listeners} {...attributes} className={classes.columnHeader}>
 					<RenameColumn column={column} />
 
 					<MenuDotsButton
@@ -63,23 +63,24 @@ export const Column = ({ boardId, columnId }) => {
 						className={classes.columnMenuButton}
 					/>
 				</div>
-				{visibleTasks.length > 0 ? (
-					<div className={classes.columnTasks}>
-						<SortableContext
-							items={visibleTasks.map(t => t.id)}
-							strategy={verticalListSortingStrategy}
-						>
-							{visibleTasks.map(task => (
-								<TaskCard
-									key={task.id}
-									boardId={boardId}
-									columnId={columnId}
-									task={task}
-								></TaskCard>
-							))}
-						</SortableContext>
-					</div>
-				) : null}
+
+				<div
+					className={`${classes.columnTasks} ${isDragging ? classes.disableInteractions : ''}`}
+				>
+					<SortableContext
+						items={visibleTaskIds}
+						strategy={verticalListSortingStrategy}
+					>
+						{visibleTasks.map(task => (
+							<TaskCard
+								key={task.id}
+								boardId={boardId}
+								columnId={columnId}
+								task={task}
+							/>
+						))}
+					</SortableContext>
+				</div>
 
 				<AddTask columnId={columnId} />
 			</div>

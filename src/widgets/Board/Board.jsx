@@ -3,6 +3,7 @@ import {
 	DragOverlay,
 	PointerSensor,
 	pointerWithin,
+	rectIntersection,
 	useSensor,
 	useSensors,
 } from '@dnd-kit/core'
@@ -33,6 +34,21 @@ import { CreateColumn } from '@features/CreateColumn'
 import { ColumnMenu } from '@features/ColumnMenu/ColumnMenu'
 import { UIContext } from '@shared/model/UIContext'
 
+const customCollisionDetection = args => {
+	const activeType = args.active.data.current?.type
+
+	if (activeType === 'column') {
+		return rectIntersection({
+			...args,
+			droppableContainers: args.droppableContainers.filter(
+				container => container.data.current?.type === 'column',
+			),
+		})
+	}
+
+	return pointerWithin(args)
+}
+
 export const Board = () => {
 	const { boardId } = useParams()
 	const { taskId } = useParams()
@@ -62,20 +78,26 @@ export const Board = () => {
 		}),
 	)
 
+	const activeTaskId = activeTask?.id
+	const activeColumnData = activeColumn
+		? boardsState.columns[activeColumn.id]
+		: null
+
 	const overlayColumnTasks = useMemo(() => {
-		if (!activeColumn) return []
+		if (!activeColumnData) return []
 		return (
-			activeColumn.taskIds?.map(id => boardsState.tasks[id]).filter(Boolean) ||
-			[]
+			activeColumnData.taskIds
+				?.map(id => boardsState.tasks[id])
+				.filter(Boolean) || []
 		)
-	}, [activeColumn, boardsState.tasks])
+	}, [activeColumnData, boardsState.tasks])
 
 	if (!currentBoard) return null
 
 	return (
 		<>
 			<DndContext
-				collisionDetection={pointerWithin}
+				collisionDetection={customCollisionDetection}
 				onDragStart={handleDragStart}
 				onDragOver={handleDragOver}
 				onDragEnd={handleDragEnd}
@@ -239,11 +261,14 @@ export const Board = () => {
 				)}
 
 				<DragOverlay dropAnimation={null}>
-					{activeTask ? (
-						<TaskCardOverlay task={boardsState.tasks[activeTask]} />
+					{activeTaskId ? (
+						<TaskCardOverlay task={boardsState.tasks[activeTaskId]} />
 					) : null}
-					{activeColumn ? (
-						<ColumnOverlay column={activeColumn} tasks={overlayColumnTasks} />
+					{activeColumnData ? (
+						<ColumnOverlay
+							column={activeColumnData}
+							tasks={overlayColumnTasks}
+						/>
 					) : null}
 				</DragOverlay>
 			</DndContext>
