@@ -1,5 +1,5 @@
 .columnOverlay {
-	width: 300px;
+	width: 280px;
 	flex-shrink: 0;
 	cursor: grabbing;
 }
@@ -22,9 +22,13 @@
 }
 
 .columnOverlayTitle {
-	padding: 10px;
-	font-size: 22px;
-	font-weight: 600;
+	font-size: 20px;
+	font-weight: 500;
+	width: 100%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	padding: 8px 16px;
 }
 
 .columnOverlayTasks {

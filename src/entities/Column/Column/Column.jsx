@@ -45,8 +45,13 @@ export const Column = ({ boardId, columnId }) => {
 			style={style}
 			className={isDragging ? classes.columnDragging : classes.column}
 		>
-			<div className={classes.columnInner} ref={columnMenuRef}>
-				<div {...listeners} {...attributes} className={classes.columnHeader}>
+			<div
+				{...listeners}
+				{...attributes}
+				className={classes.columnInner}
+				ref={columnMenuRef}
+			>
+				<div className={classes.columnHeader}>
 					<RenameColumn column={column} />
 
 					<MenuDotsButton

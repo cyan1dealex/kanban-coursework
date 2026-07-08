@@ -1,6 +1,6 @@
 .column,
 .columnDragging {
-	width: 320px;
+	width: 300px;
 	padding-inline: 10px;
 	flex-shrink: 0;
 }

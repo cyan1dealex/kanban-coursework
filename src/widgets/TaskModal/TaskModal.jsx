@@ -59,22 +59,30 @@ export const TaskModal = ({ taskId }) => {
 
 			const buttonRect = targetElement.getBoundingClientRect()
 
-			toggleSubMenu(
-				type,
-				{
-					top: buttonRect.bottom + window.scrollY + 10,
-					left: buttonRect.left + window.scrollX,
-				},
-				payload,
-			)
+			let coords = {
+				top: buttonRect.bottom + window.scrollY + 10,
+				left: buttonRect.left + window.scrollX,
+			}
+
+			if (payload?.position === 'right') {
+				coords = {
+					top: buttonRect.top + window.scrollY,
+					left: buttonRect.right + window.scrollX + 10,
+				}
+			}
+
+			toggleSubMenu(type, coords, payload)
 		},
 		[toggleSubMenu],
 	)
 
 	const handleClickDescription = e => {
 		if (e.target.closest('a')) return
+
 		const selection = window.getSelection()
+
 		if (selection && selection.toString().length > 0) return
+
 		setIsDescriptionEditing(true)
 	}
 
@@ -204,8 +212,12 @@ export const TaskModal = ({ taskId }) => {
 						<div
 							className={classes.dueDateButton}
 							onClick={e =>
-								handleOpenSubMenu(e, 'dueDate', { taskId: task.id })
+								handleOpenSubMenu(e, 'dueDate', {
+									taskId: task.id,
+									position: 'right',
+								})
 							}
+							onPointerDown={e => e.stopPropagation()}
 						>
 							<span>Дата начала: {formatToDayMonth(task.startDate)}</span>
 						</div>
@@ -214,8 +226,12 @@ export const TaskModal = ({ taskId }) => {
 						<div
 							className={classes.dueDateButton}
 							onClick={e =>
-								handleOpenSubMenu(e, 'dueDate', { taskId: task.id })
+								handleOpenSubMenu(e, 'dueDate', {
+									taskId: task.id,
+									position: 'right',
+								})
 							}
+							onPointerDown={e => e.stopPropagation()}
 						>
 							<span>{formatToDayMonth(task.dueDate)}</span>
 						</div>
@@ -224,8 +240,12 @@ export const TaskModal = ({ taskId }) => {
 						<div
 							className={classes.dueDateButton}
 							onClick={e =>
-								handleOpenSubMenu(e, 'dueDate', { taskId: task.id })
+								handleOpenSubMenu(e, 'dueDate', {
+									taskId: task.id,
+									position: 'right',
+								})
 							}
+							onPointerDown={e => e.stopPropagation()}
 						>
 							<span>
 								{formatToDayMonth(task.startDate)} -{' '}

@@ -14,7 +14,7 @@
 	--color-accent: #e11d48;
 
 	--color-border: #434345;
-	--border: 3px solid var(--color-border);
+	--border: 2px solid var(--color-border);
 	--border-thin: 1px solid currentColor;
 	--border-hover: 3px solid var(--color-accent);
 	--border-radius-tiny: 4px;
