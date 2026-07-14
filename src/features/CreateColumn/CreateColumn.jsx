@@ -32,8 +32,16 @@ export const CreateColumn = memo(({ boardId }) => {
 			return
 		}
 
+		if (inputRef.current) {
+			inputRef.current.blur()
+		}
+
 		addColumn(boardId, newTitle.trim())
 		setNewTitle('')
+
+		setTimeout(() => {
+			if (inputRef.current) inputRef.current.focus()
+		}, 0)
 	}, [newTitle, boardId, addColumn])
 
 	const handleCancel = useCallback(() => {
@@ -45,26 +53,28 @@ export const CreateColumn = memo(({ boardId }) => {
 
 	if (isAddingColumn) {
 		return (
-			<div className={classes.addColumn} ref={addColumnRef}>
-				<Textarea
-					ref={inputRef}
-					className={classes.addColumnInput}
-					placeholder={'Название колонки'}
-					value={newTitle}
-					onChange={e => setNewTitle(e.target.value)}
-					onEnter={handleSubmit}
-					onEscape={handleCancel}
-				/>
-				<div className={classes.addColumnNav}>
-					<button className={classes.addColumnButton} onClick={handleSubmit}>
-						Добавить
-					</button>
-					<button
-						className={classes.addColumnCancelButton}
-						onClick={handleCancel}
-					>
-						Отмена
-					</button>
+			<div className={classes.addColumn}>
+				<div className={classes.addColumnInner} ref={addColumnRef}>
+					<Textarea
+						ref={inputRef}
+						className={classes.addColumnInput}
+						placeholder={'Название колонки'}
+						value={newTitle}
+						onChange={e => setNewTitle(e.target.value)}
+						onEnter={handleSubmit}
+						onEscape={handleCancel}
+					/>
+					<div className={classes.addColumnNav}>
+						<button className={classes.addColumnButton} onClick={handleSubmit}>
+							Добавить
+						</button>
+						<button
+							className={classes.addColumnCancelButton}
+							onClick={handleCancel}
+						>
+							Отмена
+						</button>
+					</div>
 				</div>
 			</div>
 		)

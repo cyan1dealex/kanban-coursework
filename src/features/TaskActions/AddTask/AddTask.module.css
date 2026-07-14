@@ -18,7 +18,7 @@
 	padding: 20px !important;
 
 	&:focus {
-		border-color: var(--color-accent);
+		border-color: var(--color-accent) !important;
 	}
 }
 
@@ -28,6 +28,17 @@
 	padding: 10px;
 	border: var(--border);
 	border-radius: var(--border-radius-small);
+	transition-duration: var(--transition-duration);
+
+	&:hover {
+		border-color: var(--border-hover);
+	}
+}
+
+.columnAddTaskButton {
+	&:hover {
+		border-color: var(--color-accent);
+	}
 }
 
 .columnAddTaskPrevButton {

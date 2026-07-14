@@ -22,10 +22,13 @@
 }
 
 .addColumn {
+	margin-inline: 10px;
+}
+
+.addColumnInner {
 	display: flex;
 	flex-direction: column;
 	row-gap: 10px;
-	margin-inline: 10px;
 }
 
 .addColumnNav {
@@ -53,4 +56,15 @@
 	padding: 10px;
 	border: var(--border);
 	border-radius: var(--border-radius-small);
+	transition-duration: var(--transition-duration);
+
+	&:hover {
+		border-color: var(--color-accent);
+	}
+}
+
+.addColumnCancelButton {
+	&:hover {
+		border-color: var(--border-hover);
+	}
 }

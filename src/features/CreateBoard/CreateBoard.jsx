@@ -62,7 +62,7 @@ export const CreateBoard = memo(() => {
 					<button className={classes.addBoardBtn} onClick={handleSubmit}>
 						Создать
 					</button>
-					<button className={classes.addBoardBtn} onClick={handleCancel}>
+					<button className={classes.addBoardCancelBtn} onClick={handleCancel}>
 						Отмена
 					</button>
 				</div>

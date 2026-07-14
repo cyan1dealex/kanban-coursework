@@ -32,10 +32,22 @@
 	gap: 16px;
 }
 
-.addBoardBtn {
+.addBoardBtn,
+.addBoardCancelBtn {
 	border: var(--border);
 	border-radius: var(--border-radius-small);
 	padding: 8px 20px;
+	transition-duration: var(--transition-duration);
+
+	&:hover {
+		border-color: var(--color-accent);
+	}
+}
+
+.addBoardCancelBtn {
+	&:hover {
+		border-color: var(--border-hover);
+	}
 }
 
 .addBoardButton {

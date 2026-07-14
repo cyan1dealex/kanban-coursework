@@ -49,8 +49,16 @@ export const AddTask = memo(({ columnId }) => {
 			addToast('Задача успешно создана!', 'success')
 		}
 
+		if (inputRef.current) {
+			inputRef.current.blur()
+		}
+
 		addTask(columnId, text)
 		setText('')
+
+		setTimeout(() => {
+			if (inputRef.current) inputRef.current.focus()
+		}, 0)
 	}, [text, columnId, globalFilters, addTask, addToast])
 
 	const handleCancel = useCallback(() => {
@@ -63,17 +71,15 @@ export const AddTask = memo(({ columnId }) => {
 	if (isAddingTask) {
 		return (
 			<div className={classes.columnAddTask} ref={addTaskRef}>
-				<div className={classes.columnAddTaskInner}>
-					<Textarea
-						ref={inputRef}
-						className={classes.columnAddTaskInput}
-						placeholder={'Текст задачи'}
-						value={text}
-						onChange={e => setText(e.target.value)}
-						onEnter={handleSubmit}
-						onEscape={handleCancel}
-					/>
-				</div>
+				<Textarea
+					ref={inputRef}
+					className={classes.columnAddTaskInput}
+					placeholder={'Текст задачи'}
+					value={text}
+					onChange={e => setText(e.target.value)}
+					onEnter={handleSubmit}
+					onEscape={handleCancel}
+				/>
 				<div className={classes.columnAddTaskNav}>
 					<button
 						onClick={handleSubmit}
